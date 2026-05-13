@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>HWARIM | 프리미엄 공간 기획</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+
+    :root {
+      /* 극도로 정제된 딥 다크 팔레트 (흑요석 & 골드) */
+      --bg-base: #030404;
+      --text-100: #ffffff;
+      --text-200: #d1d5d3;
+      --text-300: #8b928f;
+      --accent: #d4af37; /* 샴페인 골드 */
+      --accent-hover: #f3ce5a;
+      --border: rgba(255, 255, 255, 0.1);
+      
+      --transition-fast: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      --transition-med: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      --transition-slow: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background-color: var(--bg-base); color: var(--text-100); overflow-x: hidden; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; }
+    body.no-scroll { overflow: hidden; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; outline: none; }
+    ul, ol { list-style: none; }
+
+    /* ====================================================
+       ★ 영화관 암전 (Blackout Curtain) 트랜지션 ★
+       ==================================================== */
+    #blackout-curtain { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000000; z-index: 99990; opacity: 0; pointer-events: none; transition: opacity 0.8s ease-in-out; }
+    #blackout-curtain.active { opacity: 1; pointer-events: auto; }
+
+    /* ====================================================
+       1. HERO VIEW (Main Gate)
+       ==================================================== */
+    #public-view { position: relative; width: 100%; min-height: 100vh; min-height: 100dvh; z-index: 10; display: flex; flex-direction: column; justify-content: space-between; }
+    #public-view.hidden { display: none; }
+
+    /* Hero Background (Crossfade Gallery) */
+    .bg-gallery { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; background: #000; }
+    .bg-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transform: scale(1.05); transition: opacity 1.2s ease, transform 6s ease-out; filter: grayscale(30%) brightness(0.4); }
+    .bg-image.active { opacity: 0.8; transform: scale(1); }
+    .bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 100%, rgba(0,0,0,0.4) 0%, rgba(3,4,4,1) 80%); }
+
+    /* Header */
+    .header { width: 100%; padding: 40px 5%; display: flex; justify-content: center; z-index: 20; position: absolute; top: 0; }
+    .logo-container { text-align: center; }
+    .logo-en { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 300; letter-spacing: 12px; color: #fff; user-select: none; }
+    .logo-kr { font-family: 'Montserrat', sans-serif; font-size: 10px; color: var(--text-300); letter-spacing: 6px; margin-top: 10px; text-transform: uppercase; font-weight: 400; }
+    .secret-trigger { display: inline-block; transition: color 0.3s; }
+    @media (hover: hover) { .secret-trigger:hover { color: var(--accent); text-shadow: 0 0 15px rgba(212,175,55,0.5); } }
+
+    /* Hero Text */
+    .hero-content { width: 100%; padding: 0 5%; z-index: 20; text-align: center; margin-top: 15vh; display: flex; flex-direction: column; align-items: center; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 56px); font-weight: 300; font-style: italic; color: var(--accent); line-height: 1.3; text-shadow: 0 10px 30px rgba(0,0,0,0.8); letter-spacing: 1px; text-align: center; max-width: 800px; }
+    .hero-title b { font-weight: 500; font-style: normal; font-family: 'Pretendard', sans-serif; color: #fff; letter-spacing: -1px; }
+
+    /* ====================================================
+       ★ FAN SHAPE CARDS (1/2/3 겹침 구조) ★
+       ==================================================== */
+    .card-arena { 
+      position: relative; width: 100%; max-width: 1000px; height: 55vh; min-height: 480px; 
+      margin: 0 auto; display: flex; justify-content: center; align-items: flex-end; 
+      perspective: 1200px; z-index: 20; padding-bottom: 5vh;
+    }
+
+    .card-wrapper {
+      position: absolute; width: 320px; height: 460px; border-radius: 20px;
+      transition: all var(--transition-med); transform-origin: bottom center; cursor: pointer;
+    }
+
+    /* 좌측 01이 가장 위, 02가 중간, 03이 가장 아래(우측 뒤)로 포개지는 부채꼴 구조 */
+    .card-wrapper[data-idx="0"] { z-index: 3; transform: translateX(-160px) translateY(0px) rotate(-4deg); box-shadow: -15px 20px 40px rgba(0,0,0,0.8); }
+    .card-wrapper[data-idx="1"] { z-index: 2; transform: translateX(0px) translateY(20px) rotate(4deg); box-shadow: -10px 15px 35px rgba(0,0,0,0.6); }
+    .card-wrapper[data-idx="2"] { z-index: 1; transform: translateX(160px) translateY(40px) rotate(12deg); box-shadow: -5px 10px 30px rgba(0,0,0,0.4); }
+
+    /* 호버 시 해당 카드가 튀어나옴 */
+    @media (hover: hover) {
+      .card-wrapper:hover { z-index: 10 !important; transform: translateX(calc(var(--hover-x, 0px))) translateY(-40px) rotate(0deg) scale(1.05) !important; box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 30px rgba(212,175,55,0.3) !important; }
+      .card-wrapper[data-idx="0"]:hover { --hover-x: -180px; }
+      .card-wrapper[data-idx="1"]:hover { --hover-x: 0px; }
+      .card-wrapper[data-idx="2"]:hover { --hover-x: 180px; }
+    }
+
+    .card { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; position: relative; background: #111; border: 1px solid rgba(255,255,255,0.1); }
+    .card-media { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(10%) contrast(1.1); transition: transform var(--transition-med); transform: scale(1.05); }
+    .card-wrapper:hover .card-media { transform: scale(1.15); filter: grayscale(0%) contrast(1.1); }
+    
+    .card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, transparent 100%); transition: opacity var(--transition-fast); }
+    .card-wrapper:hover .card-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%); }
+
+    .card-content { position: absolute; top: 0; right: 0; width: 100%; padding: 30px 25px; display: flex; flex-direction: column; align-items: flex-end; text-align: right; z-index: 2; pointer-events: none; }
+    .card-number { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; color: var(--accent); margin-bottom: 8px; letter-spacing: 4px; }
+    .card-title { font-size: 24px; font-weight: 400; color: #fff; letter-spacing: -1px; transition: color var(--transition-fast); line-height: 1.3; }
+    .card-arrow { margin-top: 15px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 2px; color: var(--text-300); display: flex; align-items: center; justify-content: flex-end; gap: 8px; text-transform: uppercase; transition: all var(--transition-fast); opacity: 0; transform: translateX(-10px); }
+    .card-arrow span { font-size: 16px; transition: transform var(--transition-fast); }
+    
+    .card-wrapper:hover .card-title { color: var(--accent-hover); }
+    .card-wrapper:hover .card-arrow { opacity: 1; transform: translateX(0); color: var(--accent); }
+    .card-wrapper:hover .card-arrow span { transform: translateX(5px); }
+
+    /* Mobile Responsive (Stack instead of fan) */
+    @media (max-width: 768px) {
+      .card-arena { flex-direction: column; height: auto; min-height: auto; gap: 20px; padding: 40px 5%; perspective: none; }
+      .card-wrapper { position: relative; width: 100%; max-width: 400px; height: 380px; transform: none !important; margin: 0; }
+      .card-wrapper[data-idx] { transform: none !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; }
+      .card-wrapper:hover { transform: translateY(-5px) !important; }
+      .card-arrow { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ====================================================
+       2. CINEMATIC DETAIL VIEW
+       ==================================================== */
+    #detail-panel { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 9000; background: #000; color: var(--text-100); display: none; }
+    #detail-panel.active { display: block; }
+
+    .btn-close {
+      position: absolute; top: max(30px, env(safe-area-inset-top)); right: 5%; z-index: 10100;
+      width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+      background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); 
+      transition: all 0.4s ease; opacity: 0; transform: scale(0.8); color: var(--text-100);
+    }
+    #detail-panel.active .btn-close { opacity: 1; transform: scale(1); transition-delay: 0.8s; }
+    .btn-close:hover { background: #fff; color: #000; transform: scale(1.1); }
+
+    .detail-content-wrapper { width: 100%; height: 100%; position: relative; }
+
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity var(--transition-slow), transform var(--transition-slow); }
+    .active .fade-up, .show.fade-up { opacity: 1; transform: translateY(0); }
+    .d-1 { transition-delay: 0.2s; } .d-2 { transition-delay: 0.3s; } .d-3 { transition-delay: 0.4s; } .d-4 { transition-delay: 0.5s; }
+
+    /* --- [A] Process View: Fullscreen Scroll Snap --- */
+    .cinematic-scroll-container { width: 100%; height: 100%; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
+    .cinematic-scroll-container::-webkit-scrollbar { display: none; }
+    .cinematic-slide { position: relative; width: 100%; height: 100vh; height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always; display: flex; align-items: center; padding: 0 8%; overflow: hidden; }
+    
+    .slide-media { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: contrast(1.1); transform: scale(1.05); transition: transform 10s linear; }
+    .cinematic-slide.active .slide-media { transform: scale(1); opacity: 0.6; } 
+    .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%); z-index: 1; }
+
+    .slide-content { position: relative; z-index: 2; width: 100%; max-width: 800px; }
+    .slide-step { font-family: 'Montserrat', sans-serif; font-size: 16px; color: var(--accent); letter-spacing: 6px; text-transform: uppercase; margin-bottom: 24px; display: inline-block; border-bottom: 1px solid var(--accent); padding-bottom: 8px; }
+    .slide-title { font-size: clamp(36px, 5vw, 64px); font-weight: 300; line-height: 1.3; letter-spacing: -1.5px; margin-bottom: 30px; text-shadow: 0 10px 40px rgba(0,0,0,0.9); }
+    .slide-title b { font-weight: 600; color: #fff; }
+    .slide-desc { font-size: 18px; color: var(--text-200); line-height: 1.8; font-weight: 300; margin-bottom: 40px; word-break: keep-all; text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+    
+    .slide-outputs { display: flex; flex-direction: column; gap: 12px; }
+    .slide-outputs li { font-size: 16px; color: var(--accent); display: flex; align-items: center; gap: 10px; font-weight: 400; }
+    .slide-outputs li::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+    .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: 0.7; animation: bounce 2s infinite; }
+    .scroll-indicator span { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
+    .scroll-indicator .line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 10px); } }
+
+    @media (max-width: 768px) {
+      .slide-overlay { background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 60%, transparent 100%); }
+      .slide-content { margin-top: auto; padding-bottom: 100px; }
+      .slide-title { font-size: 32px; }
+      .slide-desc { font-size: 16px; }
+    }
+
+    /* --- [B] Estimate View --- */
+    .estimate-view { display: flex; flex-direction: column; height: 100%; justify-content: center; align-items: center; padding: 0 5%; background: #fff; }
+    .app-iframe { width: 100%; max-width: 1400px; height: 85vh; border: none; opacity: 0; transition: opacity 1s ease; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+    .app-iframe.loaded { opacity: 1; }
+    .loader-wrap { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; color: #000; }
+    .fallback-msg { text-align: center; max-width: 600px; color: #000; }
+    .fallback-msg h2 { font-size: clamp(32px, 5vw, 42px); font-weight: 300; margin-bottom: 20px; line-height: 1.3; }
+    .fallback-msg p { font-size: 16px; color: #666; line-height: 1.7; margin-bottom: 50px; }
+    .btn-primary { display: inline-block; padding: 20px 48px; background: #000; color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 1px; border-radius: 4px; transition: transform 0.3s; }
+    .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+
+    /* --- [C] Philosophy View --- */
+    .philosophy-scroll { width: 100%; height: 100%; overflow-y: auto; background: var(--bg-base); }
+    .article-hero { height: 70vh; position: relative; display: flex; align-items: flex-end; padding: 0 5% 10%; }
+    .article-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); z-index: -1; }
+    .article-hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(to top, var(--bg-base), transparent); z-index: 0; }
+    .article-hero-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; width: 100%; text-align: center; }
+    .article-hero-sub { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--accent); letter-spacing: 6px; margin-bottom: 24px; text-transform: uppercase; }
+    .article-hero-title { font-size: clamp(40px, 6vw, 64px); font-weight: 300; letter-spacing: -1.5px; line-height: 1.3; }
+    .article-body { max-width: 800px; margin: 0 auto; padding: 80px 5% 200px; font-size: 18px; line-height: 2.2; color: var(--text-200); font-weight: 300; text-align: justify; word-break: keep-all; }
+    .article-body h3 { font-size: 28px; color: #fff; font-weight: 400; margin: 80px 0 30px; letter-spacing: -0.5px; }
+    .article-body p { margin-bottom: 30px; }
+    .article-body .highlight { display: block; font-family: 'Cormorant Garamond', serif; font-size: 32px; font-style: italic; color: var(--accent); margin: 80px 0; text-align: center; line-height: 1.5; padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    /* ====================================================
+       3. ADMIN DASHBOARD
+       ==================================================== */
+    #admin-view { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; background: #050505; z-index: 99999; display: none; flex-direction: column; overflow: hidden; }
+    #admin-view.active { display: flex; }
+    .admin-header { height: 70px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background: #000; }
+    .admin-header h2 { font-size: 16px; font-weight: 500; letter-spacing: 1px; color: var(--accent); }
+    .admin-actions { display: flex; gap: 10px; }
+    .btn-admin { padding: 10px 20px; font-size: 13px; border: 1px solid #555; border-radius: 4px; transition: 0.3s; color: #fff; cursor: pointer; }
+    .btn-save { background: #fff; color: #000; border-color: #fff; }
+    .btn-save:hover { background: #e0e0e0; }
+    .btn-close-admin:hover { background: rgba(255,255,255,0.1); }
+    
+    .admin-body { display: flex; flex: 1; overflow: hidden; }
+    .admin-sidebar { width: 260px; border-right: 1px solid #333; padding: 20px 0; overflow-y: auto; background: #000; }
+    .admin-tab { padding: 18px 24px; font-size: 13px; color: #888; cursor: pointer; transition: 0.3s; border-left: 2px solid transparent; letter-spacing: 1px; }
+    .admin-tab.active { color: #fff; border-color: var(--accent); background: rgba(255,255,255,0.05); }
+    .admin-content { flex: 1; padding: 50px 5%; overflow-y: auto; background: #111; }
+    .tab-pane { display: none; max-width: 900px; margin: 0 auto; }
+    .tab-pane.active { display: block; }
+    
+    .form-group { margin-bottom: 30px; }
+    .form-group label { display: block; font-size: 12px; color: #aaa; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .form-control { width: 100%; background: #0a0a0a; border: 1px solid #444; color: #fff; padding: 16px; border-radius: 4px; font-size: 14px; transition: border-color 0.3s; }
+    .form-control:focus { outline: none; border-color: var(--accent); }
+    textarea.form-control { min-height: 120px; resize: vertical; line-height: 1.6; }
+    .item-card { border: 1px solid #333; padding: 30px; margin-bottom: 30px; border-radius: 4px; background: #1a1a1a; }
+    .item-card h4 { font-size: 15px; color: var(--accent); margin-bottom: 24px; font-weight: 400; letter-spacing: 1px; }
+
+    @media (max-width: 768px) {
+      .admin-body { flex-direction: column; }
+      .admin-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #333; flex-direction: row; padding: 0; overflow-x: auto; white-space: nowrap; }
+      .admin-tab { display: inline-block; border-left: none; border-bottom: 2px solid transparent; }
+      .admin-tab.active { border-color: var(--accent); }
+    }
+
+    #global-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 100000; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+    .spinner { width: 40px; height: 40px; border: 2px solid transparent; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  </style>
+</head>
+<body>
+
+  <!-- 전역 로딩 -->
+  <div id="global-loader"><div class="spinner"></div></div>
+
+  <!-- 영화관 암전(Blackout) 트랜지션 커튼 -->
+  <div id="blackout-curtain"></div>
+
+  <!-- 1. PUBLIC HERO VIEW -->
+  <main id="public-view">
+    <div class="bg-gallery" id="bg-gallery">
+      <div class="bg-overlay"></div>
+    </div>
+    
+    <header class="header">
+      <div class="logo-container">
+        <div class="logo-en">HWA<span id="secret-admin-trigger" class="secret-trigger" tabindex="0">R</span>IM</div>
+        <div class="logo-kr">프리미엄 공간 기획 컨설팅</div>
+      </div>
+    </header>
+
+    <div class="hero-content">
+      <h1 class="hero-title" id="render-hero-title"></h1>
+    </div>
+
+    <!-- 카드 부채꼴(1, 2, 3) 컨테이너 -->
+    <div class="card-arena" id="render-cards">
+      <!-- Cards injected here via JS -->
+    </div>
+  </main>
+
+  <!-- 2. DETAIL PANEL (Movie-like Modal) -->
+  <section id="detail-panel">
+    <button class="btn-close" id="btn-close-detail" aria-label="닫기">
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <div class="detail-content-wrapper" id="detail-root"></div>
+  </section>
+
+  <!-- 3. ADMIN VIEW (Hidden) -->
+  <div id="admin-view">
+    <div class="admin-header">
+      <h2>HWARIM CMS</h2>
+      <div class="admin-actions">
+        <button class="btn-admin btn-close-admin" id="btn-close-admin">닫기</button>
+        <button class="btn-admin btn-save" id="btn-save-data">저장 및 반영</button>
+      </div>
+    </div>
+    <div class="admin-body">
+      <aside class="admin-sidebar">
+        <div class="admin-tab active" data-target="tab-hero">00. 메인 화면 및 메뉴</div>
+        <div class="admin-tab" data-target="tab-process">01. 프로세스 상세 (10단계)</div>
+        <div class="admin-tab" data-target="tab-estimate">02. 견적 시스템 연동</div>
+        <div class="admin-tab" data-target="tab-philosophy">03. 컨설팅 철학 본문</div>
+        <div class="admin-tab" data-target="tab-deploy" style="color:var(--accent);">04. 저장 및 배포 (GitHub)</div>
+      </aside>
+      <main class="admin-content">
+        <div class="tab-pane active" id="tab-hero">
+          <div class="form-group"><label>메인 히어로 타이틀 (HTML 허용)</label><input type="text" id="ad-hero-title" class="form-control" /></div>
+          <div class="form-group">
+            <label>메인 기본 배경 이미지 URL (구글 드라이브 권장)</label>
+            <div style="display:flex; gap:10px;">
+              <input type="text" id="ad-hero-media" class="form-control media-url-input" data-preview="hero-prev" placeholder="URL 입력" style="flex:1" />
+              <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
+                업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'ad-hero-media', 'hero-prev')">
+              </label>
+            </div>
+            <p style="font-size:11px; color:#666; margin-top:5px;">* 구글 드라이브 '링크 복사' 주소를 붙여넣으면 자동으로 연동 주소로 변환됩니다.</p>
+          </div>
+          <div id="hero-prev" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;"></div>
+          <p style="font-size:12px; color:#888; margin-bottom:20px;">각 카드 배경 이미지를 설정하세요.</p>
+          <div id="ad-nav-container"></div>
+        </div>
+        <div class="tab-pane" id="tab-process">
+          <p style="font-size:12px; color:#888; margin-bottom:30px;">각 단계를 극적으로 보여줄 <b>구글 드라이브 동영상(.mp4) 혹은 이미지 URL</b> 입력을 권장합니다.</p>
+          <div id="ad-slides-container"></div>
+        </div>
+        <div class="tab-pane" id="tab-estimate">
+          <div class="form-group"><label>견적 웹앱 URL (Iframe 연동)</label><input type="text" id="ad-estimate-url" class="form-control" placeholder="https://..." /></div>
+        </div>
+        <div class="tab-pane" id="tab-philosophy">
+          <div class="form-group">
+            <label>본문 배경 이미지 (구글 드라이브 권장)</label>
+            <div style="display:flex; gap:10px;">
+              <input type="text" id="ad-phil-img" class="form-control media-url-input" data-preview="p-prev-phil" placeholder="URL 입력" style="flex:1;" />
+              <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
+                업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'ad-phil-img', 'p-prev-phil')">
+              </label>
+            </div>
+            <p style="font-size:11px; color:#666; margin-top:5px;">* 구글 드라이브 '링크 복사' 주소를 붙여넣으면 자동으로 연동 주소로 변환됩니다.</p>
+            <div id="p-prev-phil" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; margin-top:10px; overflow:hidden; display:flex; align-items:center; justify-content:center;"></div>
+          </div>
+          <div class="form-group"><label>메인 제목</label><input type="text" id="ad-phil-title" class="form-control" /></div>
+          <div class="form-group"><label>서브 타이틀</label><input type="text" id="ad-phil-sub" class="form-control" /></div>
+          <div class="form-group"><label>본문 내용 (HTML 허용)</label><textarea id="ad-phil-content" class="form-control" style="min-height:300px;"></textarea></div>
+        </div>
+        <div class="tab-pane" id="tab-deploy">
+          <h3 style="font-size:20px; color:var(--accent); margin-bottom:20px;">단독 배포용 파일 추출 (GitHub / Google Drive 용)</h3>
+          <p style="font-size:14px; color:#aaa; line-height:1.8; margin-bottom:30px;">
+            현재 수정한 모든 텍스트와 <b>연결된 미디어 URL</b>이 코드 안에 완전히 내장된 새로운 <code>index.html</code> 파일을 생성합니다.<br>
+            다운로드한 파일을 <b>GitHub Pages</b>에 올리시거나 <b>Google Drive 호스팅</b>에 등록하여 즉시 영구 배포할 수 있습니다.
+          </p>
+          <button id="btn-download-html" style="background:var(--accent); color:#000; padding:15px 30px; font-size:15px; font-weight:600; border-radius:4px; cursor:pointer; border:none; transition:0.3s;">
+            현재 상태로 index.html 다운로드
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    /* ====================================================
+       Google Drive URL Auto-Converter
+       ==================================================== */
+    function convertDriveUrl(url) {
+      if (!url) return url;
+      // 구글 드라이브 공유 링크 감지 (예: https://drive.google.com/file/d/1aBcDeFg.../view)
+      const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        // 웹사이트 직접 렌더링 주소로 자동 변환
+        return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+      }
+      return url;
+    }
+
+    /* ====================================================
+       Data Model
+       ==================================================== */
+    /* --- DATA_START --- */
+    const defaultData = {
+      hero: { 
+        title: "막연한 상상을<br><b>실행 가능한 계획</b>으로.",
+        media: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80"
+      },
+      nav: [
+        { id: "process", number: "01", title: "프로세스 안내", media: "https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1600&q=80" },
+        { id: "philosophy", number: "02", title: "컨설팅 철학", media: "https://images.unsplash.com/photo-1542314831-c6a4d14effd5?auto=format&fit=crop&w=1600&q=80" },
+        { id: "estimate", number: "03", title: "견적 시뮬레이션", media: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80" }
+      ],
+      process: [
+        { step: "Master Timeline", title: "막연한 구상을<br><b>실행 가능한 계획</b>으로.", desc: "화림은 현장 조사부터 기획, 인허가, 3D 시각화, 그리고 자금 조달까지 이어지는 전체 여정을 단 3~4개월의 완벽한 마스터플랜으로 구조화합니다. 고객의 상상은 화림을 만나 명확한 투자 가치를 지닌 프로젝트로 탈바꿈합니다.", outputs: ["프로젝트 전체 흐름 구조화", "선행 리스크 사전 파악", "최종 산출물 기준 설정"], media: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Principle", title: "성공을 확신하는<br><b>화림의 3대 원칙</b>", desc: "시행착오를 제로화하는 철저한 사전 검토, 행정과 설계의 병렬 진행을 통한 압도적인 시간 단축, 그리고 고객과의 명확한 역할 분담. 이 세 가지 원칙이 화림이 이끌어가는 프리미엄 파트너십의 근간입니다.", outputs: ["시행착오 제로화 시스템", "시간 단축의 과학", "투명한 역할 분담"], media: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Phase 1", title: "오차 0%를 향한 집념,<br><b>드론 3D 대지 스캐닝</b>", desc: "사람의 눈대중이나 낡은 지적도에 의존하지 않습니다. 화림은 현장에 특수 드론을 띄워 대지를 1cm 단위로 레이저 스캔합니다. 고저차, 주변 식생, 숨겨진 리스크까지 입체적으로 맵핑합니다.", outputs: ["초정밀 드론 3D 지형 맵핑", "현장 밀착 실사", "잠재 리스크 원천 차단"], media: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Phase 2", title: "비용이 쓰이기 전,<br><b>법적 리스크 원천 차단</b>", desc: "본격적인 설계에 들어가기 전, 사업의 성패를 가늠합니다. 토지이용계획, 용도지역, 접도 구역 및 지자체 조례를 샅샅이 파헤쳐 인허가 통과 가능성을 선제적으로 진단합니다.", outputs: ["용도지역 및 조례 심층 분석", "접도 및 환경 조건 확인", "인허가 통과 가능성 진단"], media: "https://images.unsplash.com/photo-1450101499163-c8848c66cb85?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Phase 3", title: "통과를 목적으로 하는<br><b>전략적 인허가 설계</b>", desc: "단순히 심미성만 추구하는 도면은 관공서의 문턱을 넘지 못합니다. 화림은 각 지자체의 까다로운 심의 기준과 건축/토목/환경 법규를 완벽하게 충족하면서도, 사업성을 극한으로 끌어올리는 실전형 설계를 완성합니다.", outputs: ["마스터플랜 기획안 확정", "건축 및 토목 설계 착수", "지자체 심의 기준 100% 반영"], media: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Phase 4", title: "까다로운 관공서의 문턱,<br><b>철저한 심의 대응</b>", desc: "고객을 지치게 만드는 복잡한 대관 업무를 화림이 전담합니다. 개발행위허가, 산지/농지 전용 등 관련 부서와의 끊임없는 협의를 통해 피드백에 즉각 대응하며, 예상치 못한 행정 딜레이를 완벽하게 통제합니다.", outputs: ["개발행위허가 및 전용 접수", "관련 부서 사전/사후 협의", "보완 서류 즉각 대응"], media: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Dual Track", title: "시간은 곧 자본,<br><b>행정과 디자인의 병렬 진행</b>", desc: "행정청의 인허가 심의가 진행되는 대기 시간을 허투루 쓰지 않습니다. 행정 절차와 3D 공간 디자인을 동시에 진행하는 화림만의 '듀얼 트랙 시스템'으로 전체 프로젝트 일정을 혁신적으로 단축시킵니다.", outputs: ["행정 인허가 절차 지속", "3D 건축/조경 디자인 병렬 진행", "전체 프로젝트 기간 단축"], media: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80" },
+        { step: "3D Vision", title: "지어지기도 전에 걷다,<br><b>초고화질 3D 시각화</b>", desc: "2D 도면을 보며 상상하실 필요 없습니다. AI 기술과 최신 렌더링 엔진을 활용해 실제 완공 후의 모습을 영화 같은 초고화질 실사 3D 영상으로 구현합니다. 투자 전에 완성된 공간의 가치를 직접 확인하십시오.", outputs: ["실사형 하이엔드 3D 렌더링", "고객 의사결정용 시뮬레이션", "사전 마케팅용 시각 자료"], media: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Final Package", title: "즉시 착공과 자금 조달,<br><b>파이널 패키지</b>", desc: "인허가가 완료되는 즉시 착공과 자금 조달이 가능하도록 모든 산출물을 집대성합니다. 오차 없는 종합 견적서, 투자 유치용 전문 사업계획서, 그리고 관광진흥개발기금 등 금융 지원을 돕는 완벽한 무기를 쥐어드립니다.", outputs: ["전문 사업계획서 및 견적서", "디테일 시네마틱 홍보 영상", "관광진흥개발기금 준비 지원"], media: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1600&q=80" },
+        { step: "Checklist", title: "단 하나의 디테일도 놓치지 않는<br><b>마스터 체크리스트</b>", desc: "프로젝트의 시작부터 끝까지, 화림만의 깐깐한 마스터 체크리스트로 수백 가지 공정을 크로스 체크합니다. 결벽에 가까운 꼼꼼한 인수인계를 통해 고객이 안심하고 공간 운영에만 집중하실 수 있도록 돕습니다.", outputs: ["기획 및 준비 단계 체크", "설계안 및 3D 모델링 점검", "최종 산출물 납품 확인"], media: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80" }
+      ],
+      estimate: { url: "https://hwarim371-ops.github.io/hwarim-won/" },
+      philosophy: {
+        bgMedia: "https://images.unsplash.com/photo-1464822759023-fea09fc8f395?auto=format&fit=crop&w=1800&q=80",
+        title: "독자적 시스템과 변치 않는 철학", subtitle: "HWARIM CONSULTING VISION",
+        content: "<h3>대지를 훼손하지 않는 시스템</h3><p>우리의 시스템은 자연의 가치를 보존하는 것에서 시작합니다. 3D 지형 맵핑을 통해 산림 훼손을 최소화하며, 주어진 대지가 품은 공간의 가치를 극대화합니다.</p><span class='highlight'>“자연과 건축은 대립하지 않습니다.<br>완벽하게 융화되어야 합니다.”</span><h3>숫자로 증명하는 투명한 기획</h3><p>사업의 성공은 철저한 데이터에서 출발합니다. 화림은 감언이설 대신 객관적인 수치와 견적으로 고객에게 가장 확실한 비전을 제시합니다. 투명함이 곧 화림의 자신감입니다.</p>"
+      }
+    };
+    /* --- DATA_END --- */
+
+    let siteData = JSON.parse(JSON.stringify(defaultData));
+    let app, auth, db, appId, docRef;
+
+    async function initializeSystem() {
+      const localData = localStorage.getItem('hwarim_v21_data'); 
+      if (localData) { try { siteData = JSON.parse(localData); } catch(e) {} }
+
+      renderPublicUI(siteData);
+      bindInteractions();
+      
+      const loader = document.getElementById('global-loader');
+      if(loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
+
+      try {
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        appId = typeof __app_id !== 'undefined' ? __app_id : 'hwarim-app';
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app); db = getFirestore(app);
+
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { await signInWithCustomToken(auth, __initial_auth_token); } 
+        else { await signInAnonymously(auth); }
+
+        onAuthStateChanged(auth, user => {
+          if (user) {
+            docRef = doc(db, 'artifacts', appId, 'public', 'data', 'siteConfig', 'main');
+            onSnapshot(docRef, (snapshot) => {
+              if (snapshot.exists()) { 
+                siteData = snapshot.data(); 
+                localStorage.setItem('hwarim_v21_data', JSON.stringify(siteData)); 
+                renderPublicUI(siteData);
+                bindInteractions();
+              }
+            });
+          }
+        });
+      } catch(e) {}
+    }
+
+    /* ====================================================
+       Helper: Generate Image/Video Tag
+       ==================================================== */
+    function generateMediaTag(url, className) {
+      if(url && url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
+        return `<video class="${className}" src="${url}" autoplay loop muted playsinline crossorigin="anonymous"></video>`;
+      }
+      return `<img class="${className}" src="${url}" alt="background" loading="lazy" />`;
+    }
+
+    /* ====================================================
+       Render Public UI (Fan Shape Cards & Gallery)
+       ==================================================== */
+    function renderPublicUI(data) {
+      document.getElementById('render-hero-title').innerHTML = data.hero.title;
+      
+      let cardsHtml = '';
+      let bgHtml = '<div class="bg-overlay"></div>';
+      
+      // 메인 기본 배경 (호버 안 했을 때)
+      bgHtml += `<div class="bg-image active" id="bg-img-default" style="background-image: url('${data.hero.media || ''}');"></div>`;
+      
+      data.nav.forEach((n, idx) => {
+        // 부채꼴 카드 렌더링
+        cardsHtml += `
+          <div class="card-wrapper" data-idx="${idx}">
+            <div class="card" data-id="${n.id}">
+              ${generateMediaTag(n.media, 'card-media')}
+              <div class="card-overlay"></div>
+              <div class="card-content">
+                <div class="card-number">${n.number}</div>
+                <h2 class="card-title">${n.title}</h2>
+                <div class="card-arrow">Explore <span>→</span></div>
+              </div>
+            </div>
+          </div>`;
+          
+        // 호버용 백그라운드 갤러리 렌더링
+        bgHtml += `<div class="bg-image" id="bg-img-${idx}" style="background-image: url('${n.media}');"></div>`;
+      });
+      
+      document.getElementById('render-cards').innerHTML = cardsHtml;
+      document.getElementById('bg-gallery').innerHTML = bgHtml;
+
+      const cardWrappers = document.querySelectorAll('.card-wrapper');
+      const bgImages = document.querySelectorAll('.bg-image');
+      
+      cardWrappers.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          bgImages.forEach(bg => bg.classList.remove('active'));
+          const targetBg = document.getElementById(`bg-img-${item.dataset.idx}`);
+          if(targetBg) targetBg.classList.add('active');
+        });
+        
+        item.addEventListener('mouseleave', () => {
+          bgImages.forEach(bg => bg.classList.remove('active'));
+          const defaultBg = document.getElementById('bg-img-default');
+          if(defaultBg) defaultBg.classList.add('active');
+        });
+      });
+    }
+
+    /* ====================================================
+       Detail View Renderers (Cinematic Scroll & Fade)
+       ==================================================== */
+    function renderDetailView(id, data) {
+      const root = document.getElementById('detail-root');
+      
+      if (id === 'process') {
+        let html = `<div class="cinematic-scroll-container" id="process-scroll-container">`;
+        
+        data.process.forEach((item, idx) => {
+          let outputHtml = (item.outputs || []).map(o => `<li>${o}</li>`).join('');
+          html += `
+            <div class="cinematic-slide" id="slide-${idx}">
+              ${generateMediaTag(item.media, 'slide-media')}
+              <div class="slide-overlay"></div>
+              <div class="slide-content">
+                <div class="slide-step fade-up">${item.step}</div>
+                <h2 class="slide-title fade-up d-1">${item.title}</h2>
+                <p class="slide-desc fade-up d-2">${item.desc}</p>
+                <ul class="slide-outputs fade-up d-3">${outputHtml}</ul>
+              </div>
+            </div>`;
+        });
+        
+        html += `
+          <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="line"></div>
+          </div>
+        </div>`;
+        
+        root.innerHTML = html;
+
+        setTimeout(() => {
+          const scrollContainer = document.getElementById('process-scroll-container');
+          const slides = scrollContainer.querySelectorAll('.cinematic-slide');
+          
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if(entry.isIntersecting) {
+                entry.target.classList.add('active');
+                if(entry.target.id === `slide-${slides.length - 1}`) {
+                  const indicator = document.querySelector('.scroll-indicator');
+                  if(indicator) indicator.style.opacity = '0';
+                }
+              } else {
+                entry.target.classList.remove('active');
+              }
+            });
+          }, { root: scrollContainer, threshold: 0.5 });
+          
+          slides.forEach(slide => observer.observe(slide));
+          slides[0].classList.add('active');
+        }, 100);
+
+      } else if (id === 'estimate') {
+        if(window.innerWidth <= 760) {
+          root.innerHTML = `
+            <div style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 10%; background:var(--bg-base);">
+              <div class="fade-up active">
+                <h2 style="font-size:28px; font-weight:300; margin-bottom:20px; color:var(--text-100);">간이 견적 계산기</h2>
+                <p style="color:var(--text-200); line-height:1.7; margin-bottom:40px;">모바일 환경에서는 더 안정적인 견적 산출을 위해<br>계산기를 새 창으로 제공합니다.</p>
+                <a href="${data.estimate.url}" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding:16px 32px; background:var(--accent); color:#000; font-weight:600; border-radius:4px;">모바일에서 견적 계산기 열기</a>
+              </div>
+            </div>`;
+        } else {
+          root.innerHTML = `
+            <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; padding:100px 5% 50px; background:var(--bg-base);">
+              <iframe style="width:100%; max-width:1400px; height:85vh; border:none; border-radius:8px; background:#fff;" src="${data.estimate.url}" class="fade-up active"></iframe>
+            </div>`;
+        }
+
+      } else if (id === 'philosophy') {
+        root.innerHTML = `
+          <div style="width:100%; height:100%; overflow-y:auto; background:var(--bg-base);">
+            <div style="height:70vh; position:relative; display:flex; align-items:flex-end; padding:0 5% 10%;">
+              ${generateMediaTag(data.philosophy.bgMedia, 'fullscreen-media')}
+              <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, var(--bg-base), transparent);"></div>
+              <div style="position:relative; z-index:2; max-width:900px; margin:0 auto; width:100%; text-align:center;">
+                <div style="color:var(--accent); letter-spacing:6px; font-size:14px; margin-bottom:24px; text-transform:uppercase; font-weight:600;" class="fade-up active d-1">${data.philosophy.subtitle}</div>
+                <h1 style="font-size:clamp(36px, 5vw, 54px); font-weight:300; color:var(--text-100);" class="fade-up active d-2">${data.philosophy.title}</h1>
+              </div>
+            </div>
+            <div style="max-width:800px; margin:0 auto; padding:80px 5% 200px; font-size:18px; line-height:2.2; color:var(--text-200); word-break:keep-all;" class="fade-up active d-3">
+              ${data.philosophy.content}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    /* ====================================================
+       ★ 영화관 암전 (Blackout) 이벤트 바인딩 ★
+       ==================================================== */
+    let isDetailOpen = false;
+
+    function bindInteractions() {
+      const cardWrappers = document.querySelectorAll('.card-wrapper');
+      const publicView = document.getElementById('public-view');
+      const detailPanel = document.getElementById('detail-panel');
+      const blackoutCurtain = document.getElementById('blackout-curtain');
+      const btnCloseDetail = document.getElementById('btn-close-detail');
+      
+      const newBtnClose = btnCloseDetail.cloneNode(true);
+      btnCloseDetail.parentNode.replaceChild(newBtnClose, btnCloseDetail);
+
+      newBtnClose.addEventListener('click', () => {
+        if(!isDetailOpen) return;
+        blackoutCurtain.classList.add('active');
+        
+        setTimeout(() => {
+          detailPanel.classList.remove('active');
+          publicView.classList.remove('hidden');
+          document.body.classList.remove('no-scroll');
+          document.getElementById('detail-root').innerHTML = ''; 
+          
+          setTimeout(() => {
+            blackoutCurtain.classList.remove('active');
+            isDetailOpen = false;
+          }, 200);
+        }, 800); 
+      });
+
+      publicView.classList.remove('hidden');
+      detailPanel.classList.remove('active');
+      document.body.classList.remove('no-scroll');
+      isDetailOpen = false;
+
+      cardWrappers.forEach(wrapper => {
+        wrapper.onclick = () => {
+          if(isDetailOpen) return;
+          isDetailOpen = true;
+          
+          blackoutCurtain.classList.add('active');
+          document.body.classList.add('no-scroll');
+          
+          setTimeout(() => {
+            const card = wrapper.querySelector('.card');
+            const id = card.dataset.id;
+            renderDetailView(id, siteData);
+            
+            publicView.classList.add('hidden');
+            detailPanel.classList.add('active');
+            
+            setTimeout(() => {
+              blackoutCurtain.classList.remove('active');
+            }, 200);
+
+          }, 800);
+        };
+      });
+
+      bindSecretAdmin();
+    }
+
+    /* ====================================================
+       Secret Admin Logic (HWA[R]IM)
+       ==================================================== */
+    function bindSecretAdmin() {
+      const trigger = document.getElementById('secret-admin-trigger');
+      if(!trigger) return;
+      
+      const newTrigger = trigger.cloneNode(true);
+      trigger.parentNode.replaceChild(newTrigger, trigger);
+      
+      let clickCount = 0; let clickTimeout;
+      newTrigger.addEventListener('click', () => {
+        clickCount++; clearTimeout(clickTimeout);
+        if(clickCount >= 5) { clickCount = 0; openAdmin(); } 
+        else { clickTimeout = setTimeout(() => { clickCount = 0; }, 3000); }
+      });
+
+      let pressTimer;
+      newTrigger.addEventListener('touchstart', () => { pressTimer = setTimeout(() => { openAdmin(); }, 2000); }, {passive:true});
+      newTrigger.addEventListener('touchend', () => { clearTimeout(pressTimer); });
+    }
+
+    /* ====================================================
+       CMS Admin Forms
+       ==================================================== */
+    const adminView = document.getElementById('admin-view');
+    const tabs = document.querySelectorAll('.admin-tab');
+    const panes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+      tab.onclick = () => {
+        tabs.forEach(t => t.classList.remove('active')); panes.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active'); document.getElementById(tab.dataset.target).classList.add('active');
+      }
+    });
+
+    function openAdmin() { buildAdminForms(); adminView.classList.add('active'); document.body.classList.add('no-scroll'); }
+    document.getElementById('btn-close-admin').onclick = () => { adminView.classList.remove('active'); document.body.classList.remove('no-scroll'); };
+
+    // 파일 업로드 (Base64 인코딩)
+    window.handleFileUpload = function(event, targetInputId, previewId) {
+      const file = event.target.files[0];
+      if(!file) return;
+
+      if(file.type.startsWith('video/')) {
+        alert('비디오 파일은 직접 업로드 대신 구글 드라이브 주소를 활용해 주세요.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 1200; 
+          let scaleSize = MAX_WIDTH / img.width;
+          if(scaleSize > 1) scaleSize = 1; 
+          
+          canvas.width = img.width * scaleSize;
+          canvas.height = img.height * scaleSize;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          
+          const base64Url = canvas.toDataURL('image/jpeg', 0.7); 
+          const inputEl = document.getElementById(targetInputId);
+          inputEl.value = base64Url;
+          
+          // 수동으로 이벤트를 발생시켜 구글 드라이브 변환 로직 등을 통과하도록 함
+          inputEl.dispatchEvent(new Event('change'));
+          
+          if(previewId) {
+            document.getElementById(previewId).innerHTML = `<img src="${base64Url}" style="width:100%; height:100%; object-fit:cover;">`;
+          }
+        }
+        img.src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    };
+
+    function updatePreview(url, previewBox) {
+      if(!previewBox) return;
+      if(!url) previewBox.innerHTML = '<span style="font-size:11px; color:#555;">미리보기</span>';
+      else if(url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) previewBox.innerHTML = `<video src="${url}" muted autoplay loop style="width:100%; height:100%; object-fit:cover;"></video>`;
+      else previewBox.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;" onerror="this.innerHTML='Error'"/>`;
+    }
+
+    function buildAdminForms() {
+      document.getElementById('ad-hero-title').value = siteData.hero.title;
+      document.getElementById('ad-hero-media').value = siteData.hero.media || '';
+
+      let navHtml = '';
+      siteData.nav.forEach((n, i) => {
+        navHtml += `
+          <div class="item-card">
+            <h4>카드 ${i+1} (${n.id})</h4>
+            <div class="form-group"><label>타이틀</label><input type="text" id="n-title-${i}" class="form-control" value="${n.title}" /></div>
+            <div class="form-group">
+              <label>배경 이미지 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
+              <div style="display:flex; gap:10px;">
+                <input type="text" id="n-img-${i}" class="form-control media-url-input" data-preview="n-prev-${i}" value="${n.media}" placeholder="URL 입력" style="flex:1" />
+                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
+                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'n-img-${i}', 'n-prev-${i}')">
+                </label>
+              </div>
+            </div>
+            <div id="n-prev-${i}" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center;"></div>
+          </div>`;
+      });
+      document.getElementById('ad-nav-container').innerHTML = navHtml;
+
+      let slidesHtml = '';
+      siteData.process.forEach((s, i) => {
+        slidesHtml += `
+          <div class="item-card">
+            <h4>Phase ${String(i+1).padStart(2,'0')}</h4>
+            <div style="display:flex; gap:10px;" class="form-group">
+              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-${i}" class="form-control" value="${s.step}" /></div>
+              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-${i}" class="form-control" value="${s.title.replace(/"/g, '&quot;')}" /></div>
+            </div>
+            <div class="form-group">
+              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
+              <div style="display:flex; gap:10px;">
+                <input type="text" id="s-img-${i}" class="form-control media-url-input" data-preview="s-prev-${i}" value="${s.media}" style="flex:1" />
+                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
+                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-${i}', 's-prev-${i}')">
+                </label>
+              </div>
+            </div>
+            <div id="s-prev-${i}" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"></div>
+            <div class="form-group"><label>설명</label><textarea id="s-desc-${i}" class="form-control">${s.desc}</textarea></div>
+            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-${i}" class="form-control" value="${(s.outputs || []).join(', ')}" /></div>
+          </div>`;
+      });
+      document.getElementById('ad-slides-container').innerHTML = slidesHtml;
+
+      document.getElementById('ad-estimate-url').value = siteData.estimate.url;
+      
+      document.getElementById('ad-phil-img').value = siteData.philosophy.bgMedia;
+      updatePreview(siteData.philosophy.bgMedia, document.getElementById('p-prev-phil'));
+      
+      document.getElementById('ad-phil-title').value = siteData.philosophy.title;
+      document.getElementById('ad-phil-sub').value = siteData.philosophy.subtitle;
+      document.getElementById('ad-phil-content').value = siteData.philosophy.content;
+
+      // Google Drive 자동 변환 및 초기 미리보기 세팅
+      document.querySelectorAll('.media-url-input').forEach(input => {
+        const pBox = document.getElementById(input.dataset.preview);
+        updatePreview(input.value, pBox);
+        
+        // 사용자가 링크를 입력하거나 붙여넣었을 때 (혹은 blur 될 때)
+        input.addEventListener('change', (e) => {
+          let newUrl = convertDriveUrl(e.target.value);
+          if(newUrl !== e.target.value) {
+            e.target.value = newUrl; // 구글 드라이브 주소 자동 변환
+          }
+          updatePreview(newUrl, pBox);
+        });
+        
+        // 실시간 입력 중 미리보기 업데이트
+        input.addEventListener('input', (e) => {
+          updatePreview(e.target.value, pBox);
+        });
+      });
+    }
+
+    document.getElementById('btn-save-data').onclick = async () => {
+      const btn = document.getElementById('btn-save-data');
+      btn.textContent = "저장 중...";
+      try {
+        siteData.hero.title = document.getElementById('ad-hero-title').value;
+        siteData.hero.media = document.getElementById('ad-hero-media').value;
+
+        siteData.nav.forEach((n, i) => {
+          n.title = document.getElementById(`n-title-${i}`).value;
+          n.media = document.getElementById(`n-img-${i}`).value;
+        });
+
+        siteData.process.forEach((s, i) => {
+          s.step = document.getElementById(`s-step-${i}`).value;
+          s.title = document.getElementById(`s-title-${i}`).value;
+          s.media = document.getElementById(`s-img-${i}`).value;
+          s.desc = document.getElementById(`s-desc-${i}`).value;
+          s.outputs = document.getElementById(`s-out-${i}`).value.split(',').map(item => item.trim()).filter(Boolean);
+        });
+
+        siteData.estimate.url = document.getElementById('ad-estimate-url').value;
+        siteData.philosophy.bgMedia = document.getElementById('ad-phil-img').value;
+        siteData.philosophy.title = document.getElementById('ad-phil-title').value;
+        siteData.philosophy.subtitle = document.getElementById('ad-phil-sub').value;
+        siteData.philosophy.content = document.getElementById('ad-phil-content').value;
+
+        localStorage.setItem('hwarim_v21_data', JSON.stringify(siteData));
+        if (docRef) { await setDoc(docRef, siteData); }
+
+        renderPublicUI(siteData); bindInteractions(); 
+        
+        btn.textContent = "저장 완료!";
+        setTimeout(() => { btn.textContent = "저장 및 반영"; adminView.classList.remove('active'); document.body.classList.remove('no-scroll'); }, 800);
+      } catch(err) { alert("저장 실패"); btn.textContent = "저장 및 반영"; }
+    };
+
+    document.getElementById('btn-download-html').onclick = async () => {
+      const btn = document.getElementById('btn-download-html');
+      const originalText = btn.textContent;
+      btn.textContent = "배포용 파일 생성 중...";
+      
+      try {
+        const response = await fetch(location.href);
+        let html = await response.text();
+        
+        const startMarker = '/* --- DATA_START --- */';
+        const endMarker = '/* --- DATA_END --- */';
+        
+        const startRegex = startMarker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const endRegex = endMarker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(startRegex + '[\\s\\S]*?' + endRegex);
+        
+        const newDataString = startMarker + '\n    const defaultData = ' + JSON.stringify(siteData, null, 2) + ';\n    ' + endMarker;
+        
+        if(regex.test(html)) {
+          html = html.replace(regex, newDataString);
+          
+          const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'hwarim_index.html';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          
+          btn.textContent = "다운로드 완료!";
+        } else {
+          alert("코드에서 데이터 영역을 찾을 수 없어 추출에 실패했습니다.");
+        }
+      } catch (e) {
+        console.error(e);
+        alert("파일 추출에 실패했습니다.");
+      }
+      setTimeout(() => { btn.textContent = originalText; }, 3000);
+    };
+
+    window.addEventListener('DOMContentLoaded', initializeSystem);
+  </script>
+</body>
+</html>
