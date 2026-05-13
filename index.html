@@ -9,7 +9,12 @@
   <meta property="og:title" content="HWARIM | 프로세스 안내" />
   <meta property="og:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다." />
   <meta property="og:image" content="https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8" />
+  <meta property="og:url" content="https://hwarim371-ops.github.io/" />
   <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HWARIM | 프로세스 안내" />
+  <meta name="twitter:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다." />
+  <meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8" />
 
   <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -182,6 +187,25 @@
     .article-body h3 { font-size: 28px; color: #fff; font-weight: 400; margin: 80px 0 30px; letter-spacing: -0.5px; }
     .article-body p { margin-bottom: 30px; }
     .article-body .highlight { display: block; font-family: 'Cormorant Garamond', serif; font-size: 32px; font-style: italic; color: var(--accent); margin: 80px 0; text-align: center; line-height: 1.5; padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .philosophy-content { text-align: left !important; word-break: keep-all !important; overflow-wrap: break-word !important; }
+    .philosophy-content p, .philosophy-content li, .philosophy-content blockquote { text-align: left !important; word-break: keep-all !important; overflow-wrap: break-word !important; }
+
+    @media (max-width: 768px) {
+      .philosophy-kicker { letter-spacing: 2px !important; font-size: 12px !important; line-height: 1.5 !important; }
+      .philosophy-title { font-size: 34px !important; line-height: 1.35 !important; letter-spacing: 0 !important; }
+      .philosophy-content { padding: 56px 20px 120px !important; font-size: 16px !important; line-height: 1.85 !important; }
+      .philosophy-content, .philosophy-content * { letter-spacing: 0 !important; word-spacing: 0 !important; }
+      .philosophy-content h1, .philosophy-content h2 { line-height: 1.4 !important; }
+      .philosophy-content h1, .philosophy-content [style*="font-size:48px"] { font-size: 30px !important; text-align: center !important; }
+      .philosophy-content h2, .philosophy-content [style*="font-size:32px"] { font-size: 24px !important; }
+      .philosophy-content [style*="font-size:31px"], .philosophy-content [style*="font-size:27px"], .philosophy-content [style*="font-size:25px"], .philosophy-content [style*="font-size:24px"], .philosophy-content [style*="font-size:23px"] { font-size: 21px !important; }
+      .philosophy-content [style*="padding:96px"] { padding: 64px 20px 56px !important; }
+      .philosophy-content [style*="padding:74px"] { padding: 52px 20px 76px !important; }
+      .philosophy-content [style*="padding:46px"], .philosophy-content [style*="padding:42px"], .philosophy-content [style*="padding:38px"], .philosophy-content [style*="padding:36px"], .philosophy-content [style*="padding:34px"] { padding: 28px 22px !important; }
+      .philosophy-content [style*="border-radius"] { border-radius: 18px !important; }
+      .philosophy-content ul { padding-left: 18px !important; }
+      .philosophy-content blockquote { padding: 28px 22px !important; }
+    }
 
     /* ====================================================
        3. ADMIN DASHBOARD
@@ -728,12 +752,14 @@
     function renderSiteSafely() {
       try {
         siteData = normalizeSiteData(siteData);
+        refreshShareMeta(siteData);
         renderPublicUI(siteData);
         bindInteractions();
       } catch(error) {
         console.error(error);
         removeStoredData();
         siteData = cloneDefaultData();
+        refreshShareMeta(siteData);
         renderPublicUI(siteData);
         bindInteractions();
       } finally {
@@ -786,6 +812,7 @@
                 const data = normalizeSiteData(snapshot.data()); 
                 siteData = data;
                 setStoredData(siteData); 
+                refreshShareMeta(siteData);
                 renderPublicUI(siteData);
                 bindInteractions();
               }
@@ -969,11 +996,11 @@
               ${generateMediaTag(data.philosophy.bgMedia, 'fullscreen-media')}
               <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(to top, var(--bg-base), transparent);"></div>
               <div style="position:relative; z-index:2; max-width:900px; margin:0 auto; width:100%; text-align:center;">
-                <div style="color:var(--accent); letter-spacing:6px; font-size:14px; margin-bottom:24px; text-transform:uppercase; font-weight:600;" class="fade-up active d-1">${data.philosophy.subtitle}</div>
-                <h1 style="font-size:clamp(36px, 5vw, 54px); font-weight:300; color:var(--text-100);" class="fade-up active d-2">${data.philosophy.title}</h1>
+                <div style="color:var(--accent); letter-spacing:6px; font-size:14px; margin-bottom:24px; text-transform:uppercase; font-weight:600;" class="fade-up active d-1 philosophy-kicker">${data.philosophy.subtitle}</div>
+                <h1 style="font-size:clamp(36px, 5vw, 54px); font-weight:300; color:var(--text-100);" class="fade-up active d-2 philosophy-title">${data.philosophy.title}</h1>
               </div>
             </div>
-            <div style="max-width:800px; margin:0 auto; padding:80px 5% 200px; font-size:18px; line-height:2.2; color:var(--text-200); font-weight: 300; text-align: justify; word-break: keep-all;" class="fade-up active d-3">
+            <div style="max-width:800px; margin:0 auto; padding:80px 5% 200px; font-size:18px; line-height:2.2; color:var(--text-200); font-weight: 300; text-align: left; word-break: keep-all; overflow-wrap: break-word;" class="fade-up active d-3 philosophy-content">
               ${data.philosophy.content}
             </div>
           </div>
@@ -1299,6 +1326,7 @@
           catch (fbError) { console.error(fbError); }
         }
 
+        refreshShareMeta(siteData);
         renderPublicUI(siteData); bindInteractions(); 
         
         btn.textContent = "저장 완료!";
@@ -1343,6 +1371,31 @@
       return html.replace('</head>', `  ${replacement}\n</head>`);
     }
 
+    function updateMetaName(html, name, content) {
+      const safeContent = escapeHtmlAttr(content || '');
+      const pattern = new RegExp(`<meta\\s+name=["']${name}["']\\s+content=["'][^"']*["']\\s*/?>`, 'i');
+      const replacement = `<meta name="${name}" content="${safeContent}" />`;
+      if (pattern.test(html)) return html.replace(pattern, replacement);
+      return html.replace('</head>', `  ${replacement}\n</head>`);
+    }
+
+    function refreshShareMeta(data) {
+      if (!data || !data.seo) return;
+      document.title = data.seo.title || 'HWARIM | 프로세스 안내';
+
+      const setContent = (selector, value) => {
+        const meta = document.querySelector(selector);
+        if (meta) meta.setAttribute('content', value || '');
+      };
+
+      setContent('meta[property="og:title"]', data.seo.title);
+      setContent('meta[property="og:description"]', data.seo.desc);
+      setContent('meta[property="og:image"]', data.seo.image);
+      setContent('meta[name="twitter:title"]', data.seo.title);
+      setContent('meta[name="twitter:description"]', data.seo.desc);
+      setContent('meta[name="twitter:image"]', data.seo.image);
+    }
+
     function cleanDomSnapshotForDownload() {
       const clone = document.documentElement.cloneNode(true);
 
@@ -1357,15 +1410,6 @@
         loader.style.opacity = '';
         loader.style.display = '';
       }
-
-      const heroTitle = clone.querySelector('#render-hero-title');
-      if (heroTitle) heroTitle.innerHTML = '';
-
-      const cards = clone.querySelector('#render-cards');
-      if (cards) cards.innerHTML = '';
-
-      const gallery = clone.querySelector('#bg-gallery');
-      if (gallery) gallery.innerHTML = '<div class="bg-overlay"></div>';
 
       const detailRoot = clone.querySelector('#detail-root');
       if (detailRoot) detailRoot.innerHTML = '';
@@ -1438,6 +1482,9 @@
           html = updateMetaProperty(html, 'og:title', siteData.seo.title);
           html = updateMetaProperty(html, 'og:description', siteData.seo.desc);
           html = updateMetaProperty(html, 'og:image', siteData.seo.image);
+          html = updateMetaName(html, 'twitter:title', siteData.seo.title);
+          html = updateMetaName(html, 'twitter:description', siteData.seo.desc);
+          html = updateMetaName(html, 'twitter:image', siteData.seo.image);
         }
         
         html = injectDataIntoHtml(html);
