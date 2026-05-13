@@ -1,588 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko"><head><script>(function(firebaseConfig, initialAuthToken, appId) {
-        window.__firebase_config = firebaseConfig;
-        window.__initial_auth_token = initialAuthToken;
-        window.__app_id = appId;
-            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4NWQ3NDljYzY2NDljMDMxOWY1YmJlYWYwMWU4ZmVjZDIyZjk1YzQiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIwMTEzNTc4MjYzNzI0NDEwNjQ5NyIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzA3MTExM2FhMGFhYTFhZmVfaW5kZXguaHRtbC0xNTEifSwiZXhwIjoxNzc4NjY1ODk5LCJpYXQiOjE3Nzg2NjIyOTksImFsZyI6IlJTMjU2In0.ZLTuywoSpsiYpNov0lzf8YfUOAqre0hu115JhmmbY800pwz2bprw0WMLlVumYT-GuLXSVOGzDkvgaDcW0IKUS9lyvlwMC395otKfMpHJP5fr08dXsi9jNkSkzkg7PxlwmM5XnhCPdU3S7pxJVTDR1yAiP7Mo3JT9lYZpaxtEPe_TbUHUvo6-mojljWCSBAyeDhYZG5Fhsg5KLmct0SiVAhszV9gnQK0rUwBowmvZtIM7b6GVM63KDQUyLfwvAhdmk7X8AL04PnyxNbffCoqMbylwS6jgxjGW-2f_nzcb-FGl5zPYkwkyUauCPsa3F0GJH7sOH907a8Ej04Shk4xXUw","c_071113aa0aaa1afe_index.html-151")</script><script>(function(){'use strict';var h=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var n=l(this);
-function p(a,b){if(b)a:{var d=n;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&h(d,a,{configurable:!0,writable:!0,value:b})}}function r(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function t(a){return r(a())}
-p("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});p("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
-
- MIT License
-
- Copyright (c) 2017-2023 W.Y.
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
-
-*/
-function u(a,b){var d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);var c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var v=(()=>{var a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){var b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let x=null;function y(a={}){return x?x:a.l?x=a.l:x=w(window.getComputedStyle(document.documentElement))}function z(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
-function A(a,b={}){var d;if(!(d=b.width)){d=z(a,"border-left-width");var c=z(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=z(a,"border-top-width"),c=z(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function B(a){return new Promise((b,d)=>{var c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
-function C(a){return t(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
-function D(a,b,d){return t(function*(){var c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return C(c)})}
-var E=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||E(a,b)};function F(a,b){return y(b).map(d=>{var c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
-function G(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=v();try{b.className=`${b.className} ${f}`}catch(k){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=F(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function H(a){return a.search(/^(data:)/)!==-1}function I(a,b,d){return t(function*(){var c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);var e=yield c.blob();return new Promise((f,g)=>{var k=new FileReader;k.onerror=g;k.onloadend=()=>{try{f(d({o:c,result:k.result}))}catch(m){g(m)}};k.readAsDataURL(e)})})}const J={};function K(a,b,d){var c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
-function L(a,b,d){return t(function*(){var c=K(a,b,d.C);if(J[c]!=null)return J[c];d.u&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());try{let f=yield I(a,d.i,({o:g,result:k})=>{b||(b=g.headers.get("Content-Type")||"");return k.split(/,/)[1]});var e=`data:${b};base64,${f}`}catch(f){e=d.B||""}return J[c]=e})};const M={P:"application/font-woff",R:"application/font-woff",N:"application/font-truetype",v:"application/vnd.ms-fontobject",H:"image/png",F:"image/jpeg",D:"image/jpeg",A:"image/gif",M:"image/tiff",L:"image/svg+xml",O:"image/webp"};function N(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function O(a){return t(function*(){var b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):B(b)})}function aa(a,b){return t(function*(){if(a.currentSrc){var d=document.createElement("canvas");let c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return B(d)}d=a.poster;d=yield L(d,M[N(d).toLowerCase()]||"",b);return B(d)})}
-function ba(a,b){return t(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield P(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ca(a,b){return t(function*(){return E(a,HTMLCanvasElement)?O(a):E(a,HTMLVideoElement)?aa(a,b):E(a,HTMLIFrameElement)?ba(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
-function da(a,b,d){return t(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;var c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(E(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||E(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>P(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
-return b})}function ea(a,b,d){var c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):y(d).forEach(f=>{var g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);E(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
-function fa(a,b){E(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
-function ha(a,b){return t(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){let g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield P(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
-c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
-function P(a,b,d){return t(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ca(c,b)).then(c=>da(a,c,b)).then(c=>{E(c,Element)&&(ea(a,c,b),G(a,c,":before",b),G(a,c,":after",b),E(a,HTMLTextAreaElement)&&(c.textContent=a.value),E(a,HTMLInputElement)&&c.setAttribute("value",a.value),fa(a,c));return c}).then(c=>ha(c,b)):null})};const Q=/url\((['"]?)([^'"]+?)\1\)/g,ia=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,ja=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function ka(a){var b=[];a.replace(Q,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!H(d))}
-function la(a,b,d,c){return t(function*(){try{let e=d?(new URL(b,d||void 0)).toString():b,f;f=yield L(e,M[N(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function ma(a,{I:b}){return b?a.replace(ja,d=>{for(;;){let [c,,e]=ia.exec(d)||[];if(!e)return"";if(e===b)return`src: ${c};`}}):a}
-function R(a,b,d){return t(function*(){if(a.search(Q)===-1)return a;var c=ma(a,d);return ka(c).reduce((e,f)=>e.then(g=>la(g,f,b,d)),Promise.resolve(c))})};function S(a,b,d){return t(function*(){var c,e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield R(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function na(a,b){return t(function*(){(yield S("background",a,b))||(yield S("background-image",a,b));(yield S("mask",a,b))||(yield S("-webkit-mask",a,b))||(yield S("mask-image",a,b))||(yield S("-webkit-mask-image",a,b))})}
-function oa(a,b){return t(function*(){var d=E(a,HTMLImageElement);if(d&&!H(a.src)||E(a,SVGImageElement)&&!H(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield L(c,M[N(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.m?(...k)=>{try{f(b.m(...k))}catch(m){g(m)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
-function pa(a,b){return t(function*(){var d=w(a.childNodes).map(c=>T(c,b));yield Promise.all(d).then(()=>a)})}function T(a,b){return t(function*(){E(a,Element)&&(yield na(a,b),yield oa(a,b),yield pa(a,b))})};const U={};function V(a){return t(function*(){var b=U[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return U[a]=b})}function W(a,b){return t(function*(){var d=a.cssText,c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>t(function*(){var g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return I(g,b.i,({result:k})=>{d=d.replace(f,`url(${k})`);return[f,k]})}));return Promise.all(e).then(()=>d)})}
-function X(a){if(a==null)return[];var b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
-d.lastIndex;b.push(e[0])}return b}
-function qa(a,b){return t(function*(){var d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let k=g+1;f=V(f.href).then(m=>W(m,b)).then(m=>X(m).forEach(q=>{try{e.insertRule(q,q.startsWith("@import")?k+=1:e.cssRules.length)}catch(Da){}})).catch(()=>{});c.push(f)}})}catch(f){let g=a.find(k=>k.href==null)||document.styleSheets[0];e.href!=null&&c.push(V(e.href).then(k=>W(k,b)).then(k=>X(k).forEach(m=>{g.insertRule(m,g.cssRules.length)})).catch(()=>
-{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function ra(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(Q)!==-1)}function sa(a,b){return t(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=w(a.ownerDocument.styleSheets);d=yield qa(d,b);return ra(d)})}
-function ta(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}var d=new Set;b(a);return d}function ua(a,b){return t(function*(){var d=yield sa(a,b),c=ta(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>R(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
-function va(a,b){return t(function*(){var d=b.j!=null?b.j:b.K?null:yield ua(a,b);if(d){let c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function wa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield P(a,b,!0);yield va(e,b);yield T(e,b);u(e,b);return yield D(e,d,c)})}
-function xa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield wa(a,b);e=yield B(e);var f=document.createElement("canvas"),g=f.getContext("2d"),k=b.G||window.devicePixelRatio||1,m=b.h||d,q=b.g||c;f.width=m*k;f.height=q*k;!b.J&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384));
-f.style.width=`${m}`;f.style.height=`${q}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function ya(a,b={}){return t(function*(){return(yield xa(a,b)).toDataURL()})};const za=["gemini.google.com","corp.google.com","proxy.googlers.com"];function Y(){return document.body.querySelectorAll('[class*="animate"]').length>0}function Z(a){return t(function*(){try{return yield ya(a,{h:a.offsetWidth,g:a.offsetHeight})}catch(d){var b=a.offsetHeight;let c=document.createElement("canvas");c.width=a.offsetWidth;c.height=b;return c.toDataURL("image/png")}})}
-function Aa(){return t(function*(){var a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
-function Ba(a){return t(function*(){var b=document.body;if(Y()){var d=yield Aa();b=d;document.body.appendChild(d)}d=yield Z(b);Y()&&document.body.removeChild(b);window.parent.postMessage({type:"SEND_SCREENSHOT",image:d,topOffset:document.documentElement.scrollTop},a.origin)})}function Ca(a){return t(function*(){var b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Z(document.body),topOffset:0};window.parent.postMessage(b,a.origin)})}
-window.addEventListener("message",a=>t(function*(){if(za.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Ba(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ca(a)))}}));
-})();</script><script>(function() {
-  // Ensure this script is executed only once
-  if (window.firebaseAuthBridgeScriptLoaded) {
-    return;
-  }
-  window.firebaseAuthBridgeScriptLoaded = true;
-
-  let nextTokenPromiseId = 0;
-
-  // Stores { resolve, reject } for ongoing token requests
-  const pendingTokenPromises = {};
-
-  // Listen for messages from the Host Application
-  window.addEventListener('message', function(event) {
-
-    const messageData = event.data;
-
-  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
-      const { success, token, error, promiseId } = messageData ?? {};
-      if (pendingTokenPromises[promiseId]) {
-        if (success) {
-          pendingTokenPromises[promiseId].resolve(token);
-        } else {
-          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
-        }
-        delete pendingTokenPromises[promiseId];
-      }
-    }
-  });
-
-  // Expose a function for the Generated App to request a new Firebase token
-  window.requestNewFirebaseToken = function() {
-    const currentPromiseId = nextTokenPromiseId++;
-    const promise = new Promise((resolve, reject) => {
-      pendingTokenPromises[currentPromiseId] = { resolve, reject };
-    });
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({
-        type: 'REQUEST_NEW_FIREBASE_TOKEN',
-        promiseId: currentPromiseId
-      }, '*');
-    } else {
-      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
-      delete pendingTokenPromises[currentPromiseId];
-    }
-    return promise;
-  };
-})();</script><script>
-let realOriginalGetUserMedia = null;
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
-}
-
-(function() {
-  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
-    try {
-      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
-        get: function() {
-          return undefined; // Or throw an error
-        },
-        configurable: false
-      });
-    } catch (error) {
-      console.error("Error defining prototype getter:", error);
-    }
-  }
-})();
-
-(function() {
-  const pendingMediaResolvers = {};
-  let nextMediaPromiseId = 0;
-
-  function requestMediaPermissions(constraints) {
-    const mediaPromiseId = nextMediaPromiseId++;
-    const promise = new Promise((resolve, reject) => {
-      pendingMediaResolvers[mediaPromiseId] = (granted) => {
-        delete pendingMediaResolvers[mediaPromiseId];
-        resolve(granted);
-      };
-    });
-
-    window.parent.postMessage({
-      type: 'requestMediaPermission',
-      constraints: constraints,
-      promiseId: mediaPromiseId,
-    }, '*');
-
-    return promise;
-  }
-
-  let originalGetUserMedia = realOriginalGetUserMedia;
-
-  function interceptGetUserMedia() {
-    if (navigator.mediaDevices) {
-      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
-        value: function(constraints) {
-          return requestMediaPermissions(constraints).then((granted) => {
-            if (granted) {
-              if (originalGetUserMedia) {
-                return originalGetUserMedia(constraints);
-              } else {
-                throw new Error("Original getUserMedia not available.");
-              }
-            } else {
-              throw new DOMException('Permission denied', 'NotAllowedError');
-            }
-          });
-        },
-        writable: false,
-        configurable: false
-      });
-    }
-  }
-
-  interceptGetUserMedia();
-
-  const observer = new MutationObserver(function(mutationsList, observer) {
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
-        interceptGetUserMedia();
-      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
-        interceptGetUserMedia();
-      } else if (mutation.type === 'childList' && mutation.addedNodes) {
-        mutation.addedNodes.forEach(node => {
-          if (node === navigator.mediaDevices) {
-            interceptGetUserMedia();
-          }
-        });
-      }
-    }
-  });
-
-  function interceptSpeechRecognition() {
-    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
-      return;
-    }
-
-    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    const SpeechRecognitionWrapper = function(...args) {
-      const recognizer = new OriginalSpeechRecognition(...args);
-      const originalStart = recognizer.start.bind(recognizer);
-
-      recognizer.start = function() {
-        requestMediaPermissions({ audio: true }).then(granted => {
-          if (granted) {
-            originalStart();
-          } else {
-            const errorEvent = new SpeechRecognitionErrorEvent('error');
-            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
-            recognizer.dispatchEvent(errorEvent);
-          }
-        });
-      };
-
-      return recognizer;
-    };
-
-    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
-    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
-
-    if (window.SpeechRecognition) {
-      window.SpeechRecognition = SpeechRecognitionWrapper;
-    }
-    if (window.webkitSpeechRecognition) {
-      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
-    }
-  }
-
-  interceptSpeechRecognition();
-
-  window.addEventListener('message', function(event) {
-    if (event.data) {
-      if (event.data.type === 'resolveMediaPermission') {
-        const { promiseId, granted } = event.data;
-        if (pendingMediaResolvers[promiseId]) {
-          pendingMediaResolvers[promiseId](granted);
-        }
-      }
-    }
-  });
-
-})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
-function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
-
- Copyright The Closure Library Authors.
- SPDX-License-Identifier: Apache-2.0
-*/
-function A(b,d){function e(){}e.prototype=d.prototype;b.i=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.g=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
-let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
-null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.h="";var l=0,t=null,r=null,q=[],F=new TextEncoder,G=new TextDecoder;
-c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*16|0;return(f===
-"x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;(g=t)==null||g.postMessage(a)}};
-Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
-(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
-url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
-</script><script>((function(modelInformation) {
-  const originalFetch = window.fetch;
-  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
-  let googleLlmBaseApiUrls = [
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
-  ];
-  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-    );
-  });
-  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-    );
-  });
-  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-    );
-  });
-
-  const pendingFetchResolvers = {};
-  let nextPromiseId = 0;
-
-  function handleStringInput(input, optionsArgument) {
-    const actualUrl = input;
-    const fetchCallArgs = [actualUrl, optionsArgument];
-    const effectiveOptions = optionsArgument || {};
-    const bodyForApiKeyCheck = effectiveOptions.body;
-    const bodyForPostMessage = effectiveOptions.body;
-    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
-  }
-
-  function handleRequestInput(input, optionsArgument) {
-    const actualUrl = input.url;
-    const fetchCallArgs = [input, optionsArgument];
-    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
-    let bodyForApiKeyCheck;
-    let bodyForPostMessage;
-
-    if (optionsArgument) {
-      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
-      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
-      if ('body' in optionsArgument) {
-        bodyForApiKeyCheck = optionsArgument.body;
-        bodyForPostMessage = optionsArgument.body;
-      } else {
-        bodyForApiKeyCheck = undefined;
-        bodyForPostMessage = input.body;
-      }
-    } else {
-      bodyForApiKeyCheck = undefined;
-      bodyForPostMessage = input.body;
-    }
-    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
-  }
-
-  window.fetch = function(input, optionsArgument) {
-    let actualUrl;
-    let fetchCallArgs;
-    let effectiveOptions = {};
-    let bodyForApiKeyCheck;
-    let bodyForPostMessage;
-
-    if (typeof input === 'string') {
-      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
-    } else if (input instanceof Request) {
-      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
-    } else {
-      return originalFetch.apply(window, [input, optionsArgument]);
-    }
-
-    effectiveOptions.method = effectiveOptions.method || 'GET';
-    if (!effectiveOptions.headers) {
-      effectiveOptions.headers = new Headers();
-    }
-
-
-    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
-      let apiKeyIsNull = true;
-
-      const regex = new RegExp("models/([^:]+)");
-      const modelNameMatch = actualUrl.match(regex);
-      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
-
-
-      try {
-        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
-        const apiKeyParam = urlObject.searchParams.get('key');
-        if (apiKeyParam) {
-          apiKeyIsNull = false;
-        }
-      } catch (e) {
-        // Continue checks even if URL parsing fails
-      }
-
-      if (apiKeyIsNull && effectiveOptions.headers) {
-        const h = new Headers(effectiveOptions.headers);
-        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
-        if (apiKeyHeaderValue) {
-          apiKeyIsNull = false;
-          return originalFetch.apply(window, fetchCallArgs);
-        }
-      }
-
-      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
-        try {
-          const bodyData = JSON.parse(bodyForApiKeyCheck);
-          if (bodyData && bodyData.apiKey) {
-            apiKeyIsNull = false;
-            return originalFetch.apply(window, fetchCallArgs);
-          }
-        } catch (e) {
-          // Ignore JSON parsing errors
-        }
-      }
-
-      if(apiKeyIsNull) {
-        const promiseId = nextPromiseId++;
-        const promise = new Promise((resolve) => {
-          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
-            delete pendingFetchResolvers[promiseId];
-            resolve(resolvedResponse);
-          };
-        });
-
-        let serializedBodyForPostMessage;
-        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
-            serializedBodyForPostMessage = bodyForPostMessage;
-        } else if (bodyForPostMessage instanceof ReadableStream) {
-            serializedBodyForPostMessage = null;
-        } else {
-            try {
-                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
-            } catch (e) {
-                serializedBodyForPostMessage = null;
-            }
-        }
-
-        const messageOptions = {
-            method: effectiveOptions.method,
-            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
-            body: serializedBodyForPostMessage
-        };
-
-        window.parent.postMessage({
-          type: 'requestFetch',
-          url: actualUrl,
-          modelName: modelName,
-          options: messageOptions,
-          promiseId: promiseId,
-        }, '*');
-
-        return promise;
-      }
-      return originalFetch.apply(window, fetchCallArgs);
-    }
-    return originalFetch.apply(window, fetchCallArgs);
-  };
-
-  window.addEventListener('message', function(event) {
-    if (event.data && event.data.type === 'resolveFetch') {
-      const { promiseId, response } = event.data;
-      if (pendingFetchResolvers[promiseId]) {
-        try {
-          const reconstructedResponse = new Response(response.body, {
-            status: response.status,
-            statusText: response.statusText,
-            headers: new Headers(response.headers),
-          });
-          pendingFetchResolvers[promiseId](reconstructedResponse);
-        } catch (error) {
-          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
-        }
-      }
-    }
-  });
-
-}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image-preview","imageTransformModelName":"gemini-3-pro-image-preview-11-2025","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image"]})</script><script>(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
-</script><script>(function() {
-  const originalConsoleLog = console.log;
-  const originalConsoleError = console.error;
-
-    /**
-   * Normalizes an error event or a promise rejection reason into a structured error object.
-   * @param {*} errorEventOrReason The error object or reason.
-   * @return {object} Structured error data { message, name, stack }.
-   */
-  function getErrorObject(errorEventOrReason) {
-    if (errorEventOrReason instanceof Error) {
-      return {
-        message: errorEventOrReason.message,
-        name: errorEventOrReason.name,
-        stack: errorEventOrReason.stack,
-      };
-    }
-    // Fallback for non-Error objects.
-    try {
-      return {
-        message: JSON.stringify(errorEventOrReason),
-        name: 'UnknownErrorType',
-        stack: null,
-      };
-    } catch (e) {
-      return {
-        message: String(errorEventOrReason),
-        name: 'UnknownErrorTypeNonStringifiable',
-        stack: null,
-      };
-    }
-  }
-
-  /**
-   * Converts an array of arguments (from log/error) into a single string.
-   * Handles Error objects specially to include their message and stack.
-   * @param {Array<*>} args - Arguments passed to console methods.
-   * @return {string} A string representation of the arguments.
-   */
-  function stringifyArgs(args) {
-    return args
-      .map((arg) => {
-        if (arg instanceof Error) {
-          const {message, stack} = arg;
-          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
-        }
-        if (typeof arg === 'object' && arg !== null) {
-          try {
-            return JSON.stringify(arg);
-          } catch (error) {
-            return '[Circular Object]';
-          }
-        } else {
-          return String(arg);
-        }
-      })
-      .join(' ');
-  }
-
-  console.log = function(...args) {
-    const logString = stringifyArgs(args);
-    window.parent.postMessage({ type: 'log', message: logString }, '*');
-    originalConsoleLog.apply(console, args);
-  };
-
-  console.error = function(...args) {
-    let errorData;
-    if (args.length > 0 && args[0] instanceof Error) {
-      const err = args[0];
-      // If the first arg is an Error, capture its details.
-      errorData = {
-        type: 'error',
-        source: 'CONSOLE_ERROR',
-        ...getErrorObject(err),
-        rawArgsString: stringifyArgs(args.slice(1)),
-        timestamp: new Date().toISOString(),
-      };
-    } else {
-      // If not an Error object, treat all args as a general error message.
-      errorData = {
-        type: 'error',
-        source: 'CONSOLE_ERROR',
-        message: stringifyArgs(args),
-        name: 'ConsoleLoggedError',
-        stack: null,
-        timestamp: new Date().toISOString(),
-      };
-    }
-    window.parent.postMessage(errorData, '*');
-    originalConsoleError.apply(console, args);
-  };
-
-  // Listen for global unhandled synchronous errors.
-  window.addEventListener('error', function(event) {
-    const errorDetails = event.error ? getErrorObject(event.error) : {
-      message: event.message,
-      name: 'GlobalError',
-      stack: null,
-      filename: event.filename,
-      lineno: event.lineno,
-      colno: event.colno,
-    };
-
-    window.parent.postMessage({
-      type: 'error',
-      source: 'global',
-      ...errorDetails,
-      message: errorDetails.message || event.message,
-      timestamp: new Date().toISOString(),
-    }, '*');
-  });
-
-  // Listen for unhandled promise rejections (asynchronous errors).
-  window.addEventListener('unhandledrejection', function(event) {
-    const errorDetails = getErrorObject(event.reason);
-
-    window.parent.postMessage({
-      type: 'error',
-      source: 'unhandledrejection',
-      ...errorDetails,
-      message: errorDetails.message || 'Unhandled Promise Rejection',
-      timestamp: new Date().toISOString(),
-    }, '*');
-  });
-
-})();</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>HWARIM | 화림 프로세스 안내</title>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>HWARIM | 프리미엄 공간 기획</title>
 
   <!-- ★ 카카오톡/문자 링크 공유 썸네일(Open Graph) 기본 설정 -->
-  <meta property="og:title" content="HWARIM | 화림 프로세스 안내">
-  <meta property="og:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다.">
-  <meta property="og:image" content="https://lh3.googleusercontent.com/d/1obPxOmgGrsvginw21o_D-BFKL3NKlChs">
-  <meta property="og:type" content="website">
+  <meta property="og:title" content="HWARIM | 프리미엄 공간 기획" />
+  <meta property="og:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다." />
+  <meta property="og:image" content="https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" />
+  <meta property="og:type" content="website" />
 
   <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -797,13 +224,15 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
 
   </style>
 </head>
-<body class="">
+<body>
 
-  <div id="global-loader" style="opacity: 0; display: none;"><div class="spinner"></div></div>
-  <div id="blackout-curtain" class=""></div>
+  <div id="global-loader"><div class="spinner"></div></div>
+  <div id="blackout-curtain"></div>
 
-  <main id="public-view" class="">
-    <div class="bg-gallery" id="bg-gallery"><div class="bg-overlay"></div></div>
+  <main id="public-view">
+    <div class="bg-gallery" id="bg-gallery">
+      <div class="bg-overlay"></div>
+    </div>
     
     <header class="header">
       <div class="logo-container">
@@ -813,21 +242,21 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     </header>
 
     <div class="hero-content">
-      <h1 class="hero-title" id="render-hero-title">막연한 상상을<br><b>실행 가능한 계획</b>으로.</h1>
+      <h1 class="hero-title" id="render-hero-title"></h1>
     </div>
 
     <div class="card-arena" id="render-cards"></div>
   </main>
 
-  <section id="detail-panel" class="">
+  <section id="detail-panel">
     <button class="btn-close" id="btn-close-detail" aria-label="닫기">
-      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
     <div class="detail-content-wrapper" id="detail-root"></div>
   </section>
 
   <!-- 3. ADMIN VIEW -->
-  <div id="admin-view" class="">
+  <div id="admin-view">
     <div class="admin-header">
       <h2>HWARIM CMS</h2>
       <div class="admin-actions">
@@ -837,305 +266,53 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     </div>
     <div class="admin-body">
       <aside class="admin-sidebar">
-        <div class="admin-tab" data-target="tab-hero">00. 메인 화면 및 메뉴</div>
+        <div class="admin-tab active" data-target="tab-hero">00. 메인 화면 및 메뉴</div>
         <div class="admin-tab" data-target="tab-process">01. 프로세스 상세 (10단계)</div>
         <div class="admin-tab" data-target="tab-estimate">02. 견적 패키지 설정</div>
         <div class="admin-tab" data-target="tab-philosophy">03. 컨설팅 철학 본문</div>
-        <div class="admin-tab active" data-target="tab-deploy" style="color:var(--accent);">04. 저장 및 배포 (GitHub)</div>
+        <div class="admin-tab" data-target="tab-deploy" style="color:var(--accent);">04. 저장 및 배포 (GitHub)</div>
       </aside>
       <main class="admin-content">
         <!-- 00. 메인 화면 설정 탭 -->
-        <div class="tab-pane" id="tab-hero">
+        <div class="tab-pane active" id="tab-hero">
           <!-- ★ 카카오톡 공유 썸네일 설정 입력칸 추가 -->
           <div class="item-card" style="border-color: var(--accent); background: #111;">
             <h4 style="color: #fff;">💡 카카오톡 / 링크 공유 썸네일 설정</h4>
-            <div class="form-group"><label>공유 시 굵은 제목</label><input type="text" id="ad-seo-title" class="form-control"></div>
-            <div class="form-group"><label>공유 시 얇은 설명글</label><input type="text" id="ad-seo-desc" class="form-control"></div>
+            <div class="form-group"><label>공유 시 굵은 제목</label><input type="text" id="ad-seo-title" class="form-control" /></div>
+            <div class="form-group"><label>공유 시 얇은 설명글</label><input type="text" id="ad-seo-desc" class="form-control" /></div>
             <div class="form-group">
               <label>공유 시 보여질 사진 URL (구글 드라이브 권장)</label>
               <div style="display:flex; gap:10px;">
-                <input type="text" id="ad-seo-image" class="form-control media-url-input" data-preview="seo-prev" placeholder="URL 입력" style="flex:1">
+                <input type="text" id="ad-seo-image" class="form-control media-url-input" data-preview="seo-prev" placeholder="URL 입력" style="flex:1" />
                 <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
                   업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'ad-seo-image', 'seo-prev')">
                 </label>
               </div>
             </div>
-            <div id="seo-prev" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;"><img src="https://lh3.googleusercontent.com/d/1obPxOmgGrsvginw21o_D-BFKL3NKlChs" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div id="seo-prev" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 20px;"></div>
           </div>
 
-          <div class="form-group"><label>메인 히어로 타이틀 (HTML 허용)</label><input type="text" id="ad-hero-title" class="form-control"></div>
+          <div class="form-group"><label>메인 히어로 타이틀 (HTML 허용)</label><input type="text" id="ad-hero-title" class="form-control" /></div>
           
           <div class="form-group">
             <label style="color:var(--accent); font-weight:bold; font-size:14px;">[1] 메인 기본 뒷배경 이미지 URL</label>
             <div style="display:flex; gap:10px;">
-              <input type="text" id="ad-hero-media" class="form-control media-url-input" data-preview="hero-prev" placeholder="URL 입력" style="flex:1">
+              <input type="text" id="ad-hero-media" class="form-control media-url-input" data-preview="hero-prev" placeholder="URL 입력" style="flex:1" />
               <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
                 직접 업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'ad-hero-media', 'hero-prev')">
               </label>
             </div>
           </div>
-          <div id="hero-prev" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 40px;"><img src="https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" style="width: 100%; height: 100%; object-fit: cover;"></div>
+          <div id="hero-prev" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 40px;"></div>
           
           <p style="font-size:16px; color:#fff; margin-bottom:10px; border-bottom:1px solid #444; padding-bottom:10px;">👇 여기서부터 3장의 [카드] 이미지를 바꾸는 곳입니다 👇</p>
           
-          <div id="ad-nav-container">
-          <div class="item-card">
-            <h4>카드 1 (프로세스 안내) 배경</h4>
-            <div class="form-group" style="display:none;"><label>타이틀</label><input type="hidden" id="n-title-0" class="form-control" value="프로세스 안내"></div>
-            <div class="form-group">
-              <label>이 카드 안에 들어갈 이미지 URL (구글 드라이브 권장)</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="n-img-0" class="form-control media-url-input" data-preview="n-prev-0" value="https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" placeholder="URL 입력" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'n-img-0', 'n-prev-0')">
-                </label>
-              </div>
-            </div>
-            <div id="n-prev-0" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" style="width: 100%; height: 100%; object-fit: cover;"></div>
-          </div>
-          <div class="item-card">
-            <h4>카드 2 (컨설팅 철학) 배경</h4>
-            <div class="form-group" style="display:none;"><label>타이틀</label><input type="hidden" id="n-title-1" class="form-control" value="컨설팅 철학"></div>
-            <div class="form-group">
-              <label>이 카드 안에 들어갈 이미지 URL (구글 드라이브 권장)</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="n-img-1" class="form-control media-url-input" data-preview="n-prev-1" value="https://lh3.googleusercontent.com/d/1GFU9Uqv3geJ3DL4l5OgYwbpSBxEuNw0H" placeholder="URL 입력" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'n-img-1', 'n-prev-1')">
-                </label>
-              </div>
-            </div>
-            <div id="n-prev-1" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="https://lh3.googleusercontent.com/d/1GFU9Uqv3geJ3DL4l5OgYwbpSBxEuNw0H" style="width: 100%; height: 100%; object-fit: cover;"></div>
-          </div>
-          <div class="item-card">
-            <h4>카드 3 (견적 시뮬레이션) 배경</h4>
-            <div class="form-group" style="display:none;"><label>타이틀</label><input type="hidden" id="n-title-2" class="form-control" value="견적 시뮬레이션"></div>
-            <div class="form-group">
-              <label>이 카드 안에 들어갈 이미지 URL (구글 드라이브 권장)</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="n-img-2" class="form-control media-url-input" data-preview="n-prev-2" value="https://lh3.googleusercontent.com/d/1dG0r_eDhEpagLjsF-6T6xBF1nDkByYto" placeholder="URL 입력" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'n-img-2', 'n-prev-2')">
-                </label>
-              </div>
-            </div>
-            <div id="n-prev-2" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="https://lh3.googleusercontent.com/d/1dG0r_eDhEpagLjsF-6T6xBF1nDkByYto" style="width: 100%; height: 100%; object-fit: cover;"></div>
-          </div></div>
+          <div id="ad-nav-container"></div>
         </div>
         
         <div class="tab-pane" id="tab-process">
           <p style="font-size:12px; color:#888; margin-bottom:30px;">각 단계를 극적으로 보여줄 <b>구글 드라이브 영상(.mp4) 혹은 이미지 URL</b> 입력을 권장합니다.</p>
-          <div id="ad-slides-container">
-          <div class="item-card">
-            <h4>Phase 01</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-0" class="form-control" value="Master Timeline"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-0" class="form-control" value="막연한 구상을&lt;br&gt;&lt;b&gt;실행 가능한 개발계획&lt;/b&gt;으로."></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-0" class="form-control media-url-input" data-preview="s-prev-0" value="https://lh3.googleusercontent.com/d/1AYXsDuWi_vFxROG-shN2jX0-C980NuQY" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-0', 's-prev-0')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-0" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1AYXsDuWi_vFxROG-shN2jX0-C980NuQY" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-0" class="form-control">캠핑장 개발은 도면 한 장으로 끝나는 일이 아닙니다. 현장 조사, 시장 분석, 사전심사, 인허가 설계, 3D 시각화, 자금 준비가 순서대로 맞물려야 실제 사업으로 연결됩니다.
-
-화림은 이 복잡한 과정을 하나의 마스터 타임라인으로 정리해 고객이 지금 어느 단계에 있고, 다음에 무엇을 준비해야 하는지 명확하게 안내합니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-0" class="form-control" value="전체 개발 흐름 구조화, 단계별 업무 기준 설정, 선행 리스크 사전 파악, 고객 의사결정 기준 확보"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 02</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-1" class="form-control" value="Principle"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-1" class="form-control" value="성공을 설계하는&lt;br&gt;&lt;b&gt;화림의 3대 원칙&lt;/b&gt;"></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-1" class="form-control media-url-input" data-preview="s-prev-1" value="https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-1', 's-prev-1')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-1" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-1" class="form-control">화림의 프로세스는 세 가지 원칙으로 움직입니다. 시행착오를 줄이는 사전 검토, 허가와 디자인을 동시에 진행하는 시간 단축, 그리고 고객과 화림의 역할을 명확히 나누는 투명한 파트너십입니다.
-
-이 원칙이 있어야 캠핑장 개발이 감정이나 추측이 아니라 데이터와 절차를 기준으로 진행됩니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-1" class="form-control" value="시행착오 최소화 시스템, 시간 단축형 병렬 진행, 투명한 역할 분담, 예측 가능한 프로젝트 관리"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 03</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-2" class="form-control" value="Phase 1"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-2" class="form-control" value="먼저 땅을 읽습니다.&lt;br&gt;&lt;b&gt;현장 정밀 진단&lt;/b&gt;"></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-2" class="form-control media-url-input" data-preview="s-prev-2" value="https://lh3.googleusercontent.com/d/1achGGTLXPPCmEDsH1Y6PNxBuP7Uunoie" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-2', 's-prev-2')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-2" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1achGGTLXPPCmEDsH1Y6PNxBuP7Uunoie" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-2" class="form-control">캠핑장 개발의 첫 단계는 도면을 그리는 것이 아니라 현장을 읽는 것입니다. 진입로, 경사, 배수, 전기 인입, 오수처리 위치, 주변 민원 가능성은 나중에 사업비와 허가 결과를 크게 바꿉니다.
-
-화림은 현장 방문과 드론 측량, 지형 3D 맵핑을 통해 눈으로 놓치기 쉬운 리스크를 초기에 확인합니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-2" class="form-control" value="현장 체크리스트, 드론 촬영 자료, 지형 3D 맵핑, 진입로·배수·경사 리스크 검토"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 04</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-3" class="form-control" value="Phase 2"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-3" class="form-control" value="예쁜 캠핑장이 아니라&lt;br&gt;&lt;b&gt;팔리는 캠핑장&lt;/b&gt;을 기획합니다."></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-3" class="form-control media-url-input" data-preview="s-prev-3" value="https://lh3.googleusercontent.com/d/107GCJ1_B3fcRXeKYW9uibAm2a3ZSRev0" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-3', 's-prev-3')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-3" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/107GCJ1_B3fcRXeKYW9uibAm2a3ZSRev0" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-3" class="form-control">좋은 캠핑장은 단순히 예쁜 공간이 아닙니다. 주변 경쟁업체의 가격, 예약률, 객실 구성, 고객층, 접근성, 지역 관광자원까지 분석해야 실제 수익 구조가 보입니다.
-
-화림은 경쟁 캠핑장과 예약 데이터를 기반으로 이 땅에 맞는 콘셉트, 객실 구성, 운영 방향을 설정합니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-3" class="form-control" value="경쟁업체 분석, 예약률 검토, 시장 포지션 설정, 캠핑장 콘셉트 방향 도출"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 05</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-4" class="form-control" value="Phase 3"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-4" class="form-control" value="통과를 목적으로 하는&lt;br&gt;&lt;b&gt;전략적 인허가 설계&lt;/b&gt;"></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-4" class="form-control media-url-input" data-preview="s-prev-4" value="https://lh3.googleusercontent.com/d/1oZDyRzKYVTbWPRmbr1_Xx0-2uxqDyrNz" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-4', 's-prev-4')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-4" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1oZDyRzKYVTbWPRmbr1_Xx0-2uxqDyrNz" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-4" class="form-control">캠핑장 개발은 지자체 판단과 관계부서 협의에서 변수가 많이 생깁니다. 그래서 본격적인 설계에 들어가기 전, 사전심사와 기초 서류 검토를 통해 허가 가능성과 보완 방향을 먼저 확인해야 합니다.
-
-이 과정은 불필요한 설계비 낭비와 뒤늦은 방향 전환을 줄이는 안전장치입니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-4" class="form-control" value="사전심사청구서, 토지이용계획 검토, 위치도·배치도 준비, 관계부서 협의 방향 정리"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 06</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-5" class="form-control" value="Phase 4"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-5" class="form-control" value="땅의 조건과 시장성을 묶어&lt;br&gt;&lt;b&gt;1차 기획안&lt;/b&gt;을 만듭니다."></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-5" class="form-control media-url-input" data-preview="s-prev-5" value="https://lh3.googleusercontent.com/d/1eALeJVAy6LL8iX2G87dDxfW7Qe51rUB3" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-5', 's-prev-5')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-5" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1eALeJVAy6LL8iX2G87dDxfW7Qe51rUB3" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-5" class="form-control">현장 조건과 시장조사 결과가 모이면 그때부터 기획안이 만들어집니다. 어디에 숙박동을 놓을지, 공용시설은 어디가 좋은지, 차량 동선과 보행 동선은 어떻게 나눌지, 조망과 프라이버시는 어떻게 확보할지 결정합니다.
-
-이 단계는 단순 배치가 아니라 사업의 방향을 시각적으로 정리하는 과정입니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-5" class="form-control" value="입지 분석, 시장 분석, 캠핑장 기획 방향 설정, 1차 배치계획안 제작"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 07</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-6" class="form-control" value="Phase 5"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-6" class="form-control" value="고객과 함께 검토하고&lt;br&gt;&lt;b&gt;최종 방향을 확정&lt;/b&gt;합니다."></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-6" class="form-control media-url-input" data-preview="s-prev-6" value="https://lh3.googleusercontent.com/d/1HhBgYydkeACaBhhoWQh-xZ2h7VBg2tcU" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-6', 's-prev-6')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-6" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1HhBgYydkeACaBhhoWQh-xZ2h7VBg2tcU" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-6" class="form-control">기획안은 화림이 일방적으로 정하는 것이 아니라 고객과 함께 검토해야 합니다. 이 단계에서 사업 방향, 규모, 예산, 디자인 콘셉트, 허가 전략을 함께 확인합니다.
-
-회의 후에는 고객 의견과 행정 기준을 반영해 인허가 접수 전 최종 수정안을 정리합니다. 이 과정을 거치면 이후 설계 변경과 불필요한 수정이 크게 줄어듭니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-6" class="form-control" value="기획안 발표, 전체 회의, 고객 의견 반영, 인허가 접수 전 최종 수정안 확정"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 08</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-7" class="form-control" value="Phase 6"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-7" class="form-control" value="그림이 아니라&lt;br&gt;&lt;b&gt;허가를 위한 설계&lt;/b&gt;로 들어갑니다."></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-7" class="form-control media-url-input" data-preview="s-prev-7" value="https://lh3.googleusercontent.com/d/1AH2FWiae16psg2fIJllYr0yOoCiP8tLh" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-7', 's-prev-7')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-7" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1AH2FWiae16psg2fIJllYr0yOoCiP8tLh" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-7" class="form-control">이 단계부터는 보기 좋은 그림이 아니라 허가를 위한 도면 작업으로 전환됩니다. 건축, 토목, 개발행위 기준을 맞추고 지자체 보완 가능성을 고려해 접수 가능한 자료를 만듭니다.
-
-빠르게 그리는 것이 목적이 아니라, 허가 과정에서 흔들리지 않도록 기준을 맞추는 것이 핵심입니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-7" class="form-control" value="실사형 하이엔드 3D 렌더링, 고객 의사결정용 시뮬레이션, 사전 마케팅용 시각 자료"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 09</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-8" class="form-control" value="Phase 7"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-8" class="form-control" value="상상 속 캠핑장을&lt;br&gt;&lt;b&gt;눈앞의 현실&lt;/b&gt;로 보여드립니다."></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-8" class="form-control media-url-input" data-preview="s-prev-8" value="https://lh3.googleusercontent.com/d/164hKwWPwrc3GxSEqPN6FJ8_kAgUVPWkm" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-8', 's-prev-8')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-8" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/164hKwWPwrc3GxSEqPN6FJ8_kAgUVPWkm" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-8" class="form-control">3D 시각화는 단순히 예쁜 이미지를 만드는 작업이 아닙니다. 고객, 투자자, 금융기관, 시공팀이 같은 그림을 보고 판단할 수 있도록 사업의 완성 모습을 구체화하는 과정입니다.
-
-화림은 스케치업, AI 디자인, 렌더링, 트윈모션 작업을 통해 배치와 분위기, 동선, 공간감을 눈으로 확인할 수 있게 만듭니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-8" class="form-control" value="스케치업 모델링, AI 디자인, 고해상도 렌더링, 조감도, 트윈모션 영상 자료"></div>
-          </div>
-          <div class="item-card">
-            <h4>Phase 10</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>스텝 명</label><input type="text" id="s-step-9" class="form-control" value="Phase 8"></div>
-              <div style="flex:2;"><label>타이틀 (HTML 허용)</label><input type="text" id="s-title-9" class="form-control" value="허가 이후까지 연결하는&lt;br&gt;&lt;b&gt;최종 보고와 자금 실행 준비&lt;/b&gt;"></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="s-img-9" class="form-control media-url-input" data-preview="s-prev-9" value="https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 's-img-9', 's-prev-9')">
-                </label>
-              </div>
-            </div>
-            <div id="s-prev-9" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>설명</label><textarea id="s-desc-9" class="form-control">허가가 완료되면 끝이 아니라 실제 사업 실행이 시작됩니다. 최종 결과를 정리하고, 시공 범위와 준비사항, 예상 일정, 필요한 서류를 한 번에 확인할 수 있어야 합니다.
-
-화림은 최종 결과 보고서와 시공 안내 자료를 정리하고, 관광진흥개발기금 신청 준비와 금융기관 협의에 필요한 자료까지 연결합니다.</textarea></div>
-            <div class="form-group" style="margin-bottom:0;"><label>결과물 (쉼표로 구분)</label><input type="text" id="s-out-9" class="form-control" value="최종 결과 보고서, 시공 안내 자료, 금융 조달 지원"></div>
-          </div></div>
+          <div id="ad-slides-container"></div>
         </div>
 
         <div class="tab-pane" id="tab-estimate">
@@ -1143,107 +320,48 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
           
           <div class="item-card" style="border-color: var(--accent); background: #111;">
             <h4 style="color: #fff;">💡 견적 시뮬레이션 인트로 (첫 화면)</h4>
-            <div class="form-group"><label>인트로 메인 제목</label><input type="text" id="ad-est-title" class="form-control"></div>
+            <div class="form-group"><label>인트로 메인 제목</label><input type="text" id="ad-est-title" class="form-control" /></div>
             <div class="form-group"><label>인트로 서브 설명 (HTML 허용)</label><textarea id="ad-est-desc" class="form-control" style="min-height:60px;"></textarea></div>
             <div class="form-group">
               <label>인트로 배경 이미지/영상 URL (구글 드라이브 권장)</label>
               <div style="display:flex; gap:10px;">
-                <input type="text" id="ad-est-media" class="form-control media-url-input" data-preview="est-prev-intro" placeholder="URL 입력" style="flex:1">
+                <input type="text" id="ad-est-media" class="form-control media-url-input" data-preview="est-prev-intro" placeholder="URL 입력" style="flex:1" />
                 <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
                   업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'ad-est-media', 'est-prev-intro')">
                 </label>
               </div>
             </div>
-            <div id="est-prev-intro" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 10px;"><img src="https://lh3.googleusercontent.com/d/1uh8vDFWxamNKrp01Ewmt5xudZ51XNgeO" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div id="est-prev-intro" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 10px;"></div>
           </div>
 
-          <div id="ad-est-pkgs-container">
-          <div class="item-card">
-            <h4>베이직 (1단계) 패키지</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>패키지명</label><input type="text" id="e-name-0" class="form-control" value="BASIC"></div>
-              <div style="flex:2;"><label>가격 텍스트 (숫자와 콤마만)</label><input type="text" id="e-price-0" class="form-control" value="5,850,000"></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="e-img-0" class="form-control media-url-input" data-preview="e-prev-0" value="https://lh3.googleusercontent.com/d/1fp7eE7_ZFpxhRJ7hJoWjQXw-3r9n0UJb" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'e-img-0', 'e-prev-0')">
-                </label>
-              </div>
-            </div>
-            <div id="e-prev-0" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1fp7eE7_ZFpxhRJ7hJoWjQXw-3r9n0UJb" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>서브 설명</label><input type="text" id="e-sub-0" class="form-control" value="&lt;p&gt; 베이직은 본격적인 설계나 허가에 들어가기 전, 해당 부지가 캠핑장 개발에 적합한지 확인하고 기본적인 개발 방향을 잡는 단계입니다. &lt;/p&gt;[부지를 보유했지만 캠핑장 가능성이 궁금한 고객]"></div>
-            <div class="form-group"><label>제공 혜택 (쉼표로 구분하여 작성)</label><textarea id="e-feat-0" class="form-control" style="min-height:80px;">사전심사 검토, 관광진흥개발기금 한도 검토, 시장조사 예매율 분석, 드론맵핑 지형 측량, 사업기획안 및 방향 설정</textarea></div>
-          </div>
-        
-          <div class="item-card">
-            <h4>스탠다드 (2단계) 패키지</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>패키지명</label><input type="text" id="e-name-1" class="form-control" value="STANDARD"></div>
-              <div style="flex:2;"><label>가격 텍스트 (숫자와 콤마만)</label><input type="text" id="e-price-1" class="form-control" value="31,110,000"></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="e-img-1" class="form-control media-url-input" data-preview="e-prev-1" value="https://lh3.googleusercontent.com/d/1ZQVdQkUchDAhMQzTMkpr2u_ygNwjY0UO" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'e-img-1', 'e-prev-1')">
-                </label>
-              </div>
-            </div>
-            <div id="e-prev-1" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1ZQVdQkUchDAhMQzTMkpr2u_ygNwjY0UO" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>서브 설명</label><input type="text" id="e-sub-1" class="form-control" value="&lt;h3&gt;고객의 구상을 실무적으로 완성하는 맞춤 지원형 프로세스&lt;/h3&gt;[원하는 콘셉트와 방향이 어느 정도 정해진 고객]"></div>
-            <div class="form-group"><label>제공 혜택 (쉼표로 구분하여 작성)</label><textarea id="e-feat-1" class="form-control" style="min-height:80px;">사전심사 검토, 관광진흥개발기금 한도 검토, 시장조사 예매율 분석, 드론맵핑 지형 측량, 사업기획안 및 방향 설정, 토목설계(허가용), 건축설계(허가용), 3D설계(허가용), 개발행위 심의 통과, 사업계획서 제작, 관광진흥개발기금 융자 진행 지원</textarea></div>
-          </div>
-        
-          <div class="item-card">
-            <h4>프리미엄 (3단계) 패키지</h4>
-            <div style="display:flex; gap:10px;" class="form-group">
-              <div style="flex:1;"><label>패키지명</label><input type="text" id="e-name-2" class="form-control" value="PREMIUM"></div>
-              <div style="flex:2;"><label>가격 텍스트 (숫자와 콤마만)</label><input type="text" id="e-price-2" class="form-control" value="38,810,000"></div>
-            </div>
-            <div class="form-group">
-              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
-              <div style="display:flex; gap:10px;">
-                <input type="text" id="e-img-2" class="form-control media-url-input" data-preview="e-prev-2" value="https://lh3.googleusercontent.com/d/1M9b9jM2CXRpR6FpupssiEbNmzjH6Id-y" style="flex:1">
-                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'e-img-2', 'e-prev-2')">
-                </label>
-              </div>
-            </div>
-            <div id="e-prev-2" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"><img src="https://lh3.googleusercontent.com/d/1M9b9jM2CXRpR6FpupssiEbNmzjH6Id-y" style="width: 100%; height: 100%; object-fit: cover;"></div>
-            <div class="form-group"><label>서브 설명</label><input type="text" id="e-sub-2" class="form-control" value="&lt;p&gt; 프리미엄은 제한된 업무 지원이 아니라 화림과 고객이 하나의 팀이 되어 처음부터 끝까지 만들어가는 &lt;strong&gt;통합 개발 파트너십&lt;/strong&gt;입니다. &lt;/p&gt;[캠핑장 개발을 처음부터 제대로 시작하고 싶은 고객]"></div>
-            <div class="form-group"><label>제공 혜택 (쉼표로 구분하여 작성)</label><textarea id="e-feat-2" class="form-control" style="min-height:80px;">사전심사 검토, 관광진흥개발기금 한도 검토, 시장조사 예매율 분석, 드론맵핑 지형 측량, 사업기획안 및 방향 설정, 토목설계(실질도면), 건축설계(실질도면), 3D설계(실질도면), 인테리어(실질도면)
-개발행위 심의 통과, 사업계획서 제작, 관광진흥개발기금 융자 진행 지원, 공사계획 및 공사 견적서 산출</textarea></div>
-          </div>
-        </div>
+          <div id="ad-est-pkgs-container"></div>
         </div>
         
         <div class="tab-pane" id="tab-philosophy">
           <div class="form-group">
             <label>본문 배경 이미지 (구글 드라이브 권장)</label>
             <div style="display:flex; gap:10px;">
-              <input type="text" id="ad-phil-img" class="form-control media-url-input" data-preview="p-prev-phil" placeholder="URL 입력" style="flex:1;">
+              <input type="text" id="ad-phil-img" class="form-control media-url-input" data-preview="p-prev-phil" placeholder="URL 입력" style="flex:1;" />
               <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
                 업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'ad-phil-img', 'p-prev-phil')">
               </label>
             </div>
-            <div id="p-prev-phil" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; margin-top:10px; overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="https://lh3.googleusercontent.com/d/1sRzvfATFsx0b-x6PAl8O2KIGavs0KSYy" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div id="p-prev-phil" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; margin-top:10px; overflow:hidden; display:flex; align-items:center; justify-content:center;"></div>
           </div>
-          <div class="form-group"><label>메인 제목</label><input type="text" id="ad-phil-title" class="form-control"></div>
-          <div class="form-group"><label>서브 타이틀</label><input type="text" id="ad-phil-sub" class="form-control"></div>
+          <div class="form-group"><label>메인 제목</label><input type="text" id="ad-phil-title" class="form-control" /></div>
+          <div class="form-group"><label>서브 타이틀</label><input type="text" id="ad-phil-sub" class="form-control" /></div>
           <div class="form-group"><label>본문 내용 (HTML 허용)</label><textarea id="ad-phil-content" class="form-control" style="min-height:300px;"></textarea></div>
         </div>
 
-        <div class="tab-pane active" id="tab-deploy">
+        <div class="tab-pane" id="tab-deploy">
           <h3 style="font-size:20px; color:var(--accent); margin-bottom:20px;">단독 배포용 파일 추출 (GitHub / Google Drive 용)</h3>
           <p style="font-size:14px; color:#aaa; line-height:1.8; margin-bottom:30px;">
             현재 수정한 모든 텍스트와 <b>연결된 미디어 URL</b>이 코드 안에 완전히 내장된 새로운 <code>index.html</code> 파일을 생성합니다.<br>
             다운로드한 파일을 <b>GitHub Pages</b>에 올리시거나 <b>Google Drive 호스팅</b>에 등록하여 즉시 영구 배포할 수 있습니다.
           </p>
-          <button id="btn-download-html" style="background:var(--accent); color:#000; padding:15px 30px; font-size:15px; font-weight:600; border-radius:4px; cursor:pointer; border:none; transition:0.3s;">배포용 파일 생성 중...</button>
+          <button id="btn-download-html" style="background:var(--accent); color:#000; padding:15px 30px; font-size:15px; font-weight:600; border-radius:4px; cursor:pointer; border:none; transition:0.3s;">
+            현재 상태로 index.html 다운로드
+          </button>
         </div>
       </main>
     </div>
@@ -1273,240 +391,83 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     }
 
     /* ====================================================
-       Data Model (v25 Master)
+       Data Model (v26 - Error Free Master)
        ==================================================== */
     /* --- DATA_START --- */
     const defaultData = {
-  "hero": {
-    "title": "막연한 상상을<br><b>실행 가능한 계획</b>으로.",
-    "media": "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH"
-  },
-  "nav": [
-    {
-      "id": "process",
-      "number": "01",
-      "title": "프로세스 안내",
-      "media": "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH"
-    },
-    {
-      "id": "philosophy",
-      "number": "02",
-      "title": "컨설팅 철학",
-      "media": "https://lh3.googleusercontent.com/d/1GFU9Uqv3geJ3DL4l5OgYwbpSBxEuNw0H"
-    },
-    {
-      "id": "estimate",
-      "number": "03",
-      "title": "견적 시뮬레이션",
-      "media": "https://lh3.googleusercontent.com/d/1dG0r_eDhEpagLjsF-6T6xBF1nDkByYto"
-    }
-  ],
-  "process": [
-    {
-      "step": "Master Timeline",
-      "title": "막연한 구상을<br><b>실행 가능한 개발계획</b>으로.",
-      "desc": "캠핑장 개발은 도면 한 장으로 끝나는 일이 아닙니다. 현장 조사, 시장 분석, 사전심사, 인허가 설계, 3D 시각화, 자금 준비가 순서대로 맞물려야 실제 사업으로 연결됩니다.\n\n화림은 이 복잡한 과정을 하나의 마스터 타임라인으로 정리해 고객이 지금 어느 단계에 있고, 다음에 무엇을 준비해야 하는지 명확하게 안내합니다.",
-      "outputs": [
-        "전체 개발 흐름 구조화",
-        "단계별 업무 기준 설정",
-        "선행 리스크 사전 파악",
-        "고객 의사결정 기준 확보"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1AYXsDuWi_vFxROG-shN2jX0-C980NuQY"
-    },
-    {
-      "step": "Principle",
-      "title": "성공을 설계하는<br><b>화림의 3대 원칙</b>",
-      "desc": "화림의 프로세스는 세 가지 원칙으로 움직입니다. 시행착오를 줄이는 사전 검토, 허가와 디자인을 동시에 진행하는 시간 단축, 그리고 고객과 화림의 역할을 명확히 나누는 투명한 파트너십입니다.\n\n이 원칙이 있어야 캠핑장 개발이 감정이나 추측이 아니라 데이터와 절차를 기준으로 진행됩니다.",
-      "outputs": [
-        "시행착오 최소화 시스템",
-        "시간 단축형 병렬 진행",
-        "투명한 역할 분담",
-        "예측 가능한 프로젝트 관리"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8"
-    },
-    {
-      "step": "Phase 1",
-      "title": "먼저 땅을 읽습니다.<br><b>현장 정밀 진단</b>",
-      "desc": "캠핑장 개발의 첫 단계는 도면을 그리는 것이 아니라 현장을 읽는 것입니다. 진입로, 경사, 배수, 전기 인입, 오수처리 위치, 주변 민원 가능성은 나중에 사업비와 허가 결과를 크게 바꿉니다.\n\n화림은 현장 방문과 드론 측량, 지형 3D 맵핑을 통해 눈으로 놓치기 쉬운 리스크를 초기에 확인합니다.",
-      "outputs": [
-        "현장 체크리스트",
-        "드론 촬영 자료",
-        "지형 3D 맵핑",
-        "진입로·배수·경사 리스크 검토"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1achGGTLXPPCmEDsH1Y6PNxBuP7Uunoie"
-    },
-    {
-      "step": "Phase 2",
-      "title": "예쁜 캠핑장이 아니라<br><b>팔리는 캠핑장</b>을 기획합니다.",
-      "desc": "좋은 캠핑장은 단순히 예쁜 공간이 아닙니다. 주변 경쟁업체의 가격, 예약률, 객실 구성, 고객층, 접근성, 지역 관광자원까지 분석해야 실제 수익 구조가 보입니다.\n\n화림은 경쟁 캠핑장과 예약 데이터를 기반으로 이 땅에 맞는 콘셉트, 객실 구성, 운영 방향을 설정합니다.",
-      "outputs": [
-        "경쟁업체 분석",
-        "예약률 검토",
-        "시장 포지션 설정",
-        "캠핑장 콘셉트 방향 도출"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/107GCJ1_B3fcRXeKYW9uibAm2a3ZSRev0"
-    },
-    {
-      "step": "Phase 3",
-      "title": "통과를 목적으로 하는<br><b>전략적 인허가 설계</b>",
-      "desc": "캠핑장 개발은 지자체 판단과 관계부서 협의에서 변수가 많이 생깁니다. 그래서 본격적인 설계에 들어가기 전, 사전심사와 기초 서류 검토를 통해 허가 가능성과 보완 방향을 먼저 확인해야 합니다.\n\n이 과정은 불필요한 설계비 낭비와 뒤늦은 방향 전환을 줄이는 안전장치입니다.",
-      "outputs": [
-        "사전심사청구서",
-        "토지이용계획 검토",
-        "위치도·배치도 준비",
-        "관계부서 협의 방향 정리"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1oZDyRzKYVTbWPRmbr1_Xx0-2uxqDyrNz"
-    },
-    {
-      "step": "Phase 4",
-      "title": "땅의 조건과 시장성을 묶어<br><b>1차 기획안</b>을 만듭니다.",
-      "desc": "현장 조건과 시장조사 결과가 모이면 그때부터 기획안이 만들어집니다. 어디에 숙박동을 놓을지, 공용시설은 어디가 좋은지, 차량 동선과 보행 동선은 어떻게 나눌지, 조망과 프라이버시는 어떻게 확보할지 결정합니다.\n\n이 단계는 단순 배치가 아니라 사업의 방향을 시각적으로 정리하는 과정입니다.",
-      "outputs": [
-        "입지 분석",
-        "시장 분석",
-        "캠핑장 기획 방향 설정",
-        "1차 배치계획안 제작"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1eALeJVAy6LL8iX2G87dDxfW7Qe51rUB3"
-    },
-    {
-      "step": "Phase 5",
-      "title": "고객과 함께 검토하고<br><b>최종 방향을 확정</b>합니다.",
-      "desc": "기획안은 화림이 일방적으로 정하는 것이 아니라 고객과 함께 검토해야 합니다. 이 단계에서 사업 방향, 규모, 예산, 디자인 콘셉트, 허가 전략을 함께 확인합니다.\n\n회의 후에는 고객 의견과 행정 기준을 반영해 인허가 접수 전 최종 수정안을 정리합니다. 이 과정을 거치면 이후 설계 변경과 불필요한 수정이 크게 줄어듭니다.",
-      "outputs": [
-        "기획안 발표",
-        "전체 회의",
-        "고객 의견 반영",
-        "인허가 접수 전 최종 수정안 확정"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1HhBgYydkeACaBhhoWQh-xZ2h7VBg2tcU"
-    },
-    {
-      "step": "Phase 6",
-      "title": "그림이 아니라<br><b>허가를 위한 설계</b>로 들어갑니다.",
-      "desc": "이 단계부터는 보기 좋은 그림이 아니라 허가를 위한 도면 작업으로 전환됩니다. 건축, 토목, 개발행위 기준을 맞추고 지자체 보완 가능성을 고려해 접수 가능한 자료를 만듭니다.\n\n빠르게 그리는 것이 목적이 아니라, 허가 과정에서 흔들리지 않도록 기준을 맞추는 것이 핵심입니다.",
-      "outputs": [
-        "실사형 하이엔드 3D 렌더링",
-        "고객 의사결정용 시뮬레이션",
-        "사전 마케팅용 시각 자료"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1AH2FWiae16psg2fIJllYr0yOoCiP8tLh"
-    },
-    {
-      "step": "Phase 7",
-      "title": "상상 속 캠핑장을<br><b>눈앞의 현실</b>로 보여드립니다.",
-      "desc": "3D 시각화는 단순히 예쁜 이미지를 만드는 작업이 아닙니다. 고객, 투자자, 금융기관, 시공팀이 같은 그림을 보고 판단할 수 있도록 사업의 완성 모습을 구체화하는 과정입니다.\n\n화림은 스케치업, AI 디자인, 렌더링, 트윈모션 작업을 통해 배치와 분위기, 동선, 공간감을 눈으로 확인할 수 있게 만듭니다.",
-      "outputs": [
-        "스케치업 모델링",
-        "AI 디자인",
-        "고해상도 렌더링",
-        "조감도",
-        "트윈모션 영상 자료"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/164hKwWPwrc3GxSEqPN6FJ8_kAgUVPWkm"
-    },
-    {
-      "step": "Phase 8",
-      "title": "허가 이후까지 연결하는<br><b>최종 보고와 자금 실행 준비</b>",
-      "desc": "허가가 완료되면 끝이 아니라 실제 사업 실행이 시작됩니다. 최종 결과를 정리하고, 시공 범위와 준비사항, 예상 일정, 필요한 서류를 한 번에 확인할 수 있어야 합니다.\n\n화림은 최종 결과 보고서와 시공 안내 자료를 정리하고, 관광진흥개발기금 신청 준비와 금융기관 협의에 필요한 자료까지 연결합니다.",
-      "outputs": [
-        "최종 결과 보고서",
-        "시공 안내 자료",
-        "금융 조달 지원"
-      ],
-      "media": "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH"
-    }
-  ],
-  "estimate": {
-    "title": "프리미엄 컨설팅 패키지",
-    "desc": "<p><br>화림은 고객의 상황과 필요에 따라<br><strong>베이직, 스탠다드, 프리미엄</strong> 세 가지 방식으로 프로세스를 나눕니다.<br>핵심 차이는 단순한 작업량이 아니라<br><strong>화림이 어느 깊이까지 참여하고, 어느 범위까지 책임 있게 조율하느냐</strong>입니다.<br></p><br>[토목1500평 , 건축:60평] 기준",
-    "media": "https://lh3.googleusercontent.com/d/1uh8vDFWxamNKrp01Ewmt5xudZ51XNgeO",
-    "pkgs": [
-      {
-        "name": "BASIC",
-        "sub": "<p> 베이직은 본격적인 설계나 허가에 들어가기 전, 해당 부지가 캠핑장 개발에 적합한지 확인하고 기본적인 개발 방향을 잡는 단계입니다. </p>[부지를 보유했지만 캠핑장 가능성이 궁금한 고객]",
-        "price": "5,850,000",
-        "popular": false,
-        "features": [
-          "사전심사 검토",
-          "관광진흥개발기금 한도 검토",
-          "시장조사 예매율 분석",
-          "드론맵핑 지형 측량",
-          "사업기획안 및 방향 설정"
-        ],
-        "media": "https://lh3.googleusercontent.com/d/1fp7eE7_ZFpxhRJ7hJoWjQXw-3r9n0UJb"
+      hero: { 
+        title: "막연한 상상을<br><b>실행 가능한 계획</b>으로.",
+        media: "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH"
       },
-      {
-        "name": "STANDARD",
-        "sub": "<h3>고객의 구상을 실무적으로 완성하는 맞춤 지원형 프로세스</h3>[원하는 콘셉트와 방향이 어느 정도 정해진 고객]",
-        "price": "31,110,000",
-        "popular": true,
-        "features": [
-          "사전심사 검토",
-          "관광진흥개발기금 한도 검토",
-          "시장조사 예매율 분석",
-          "드론맵핑 지형 측량",
-          "사업기획안 및 방향 설정",
-          "토목설계(허가용)",
-          "건축설계(허가용)",
-          "3D설계(허가용)",
-          "개발행위 심의 통과",
-          "사업계획서 제작",
-          "관광진흥개발기금 융자 진행 지원"
-        ],
-        "media": "https://lh3.googleusercontent.com/d/1ZQVdQkUchDAhMQzTMkpr2u_ygNwjY0UO"
+      nav: [
+        { id: "process", number: "01", title: "프로세스 안내", media: "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" },
+        { id: "philosophy", number: "02", title: "컨설팅 철학", media: "https://lh3.googleusercontent.com/d/1GFU9Uqv3geJ3DL4l5OgYwbpSBxEuNw0H" },
+        { id: "estimate", number: "03", title: "견적 시뮬레이션", media: "https://lh3.googleusercontent.com/d/1dG0r_eDhEpagLjsF-6T6xBF1nDkByYto" }
+      ],
+      process: [
+        { step: "Master Timeline", title: "막연한 구상을<br><b>실행 가능한 개발계획</b>으로.", desc: "캠핑장 개발은 도면 한 장으로 끝나는 일이 아닙니다. 현장 조사, 시장 분석, 사전심사, 인허가 설계, 3D 시각화, 자금 준비가 순서대로 맞물려야 실제 사업으로 연결됩니다.\n\n화림은 이 복잡한 과정을 하나의 마스터 타임라인으로 정리해 고객이 지금 어느 단계에 있고, 다음에 무엇을 준비해야 하는지 명확하게 안내합니다.", outputs: ["전체 개발 흐름 구조화", "단계별 업무 기준 설정", "선행 리스크 사전 파악", "고객 의사결정 기준 확보"], media: "https://lh3.googleusercontent.com/d/1AYXsDuWi_vFxROG-shN2jX0-C980NuQY" },
+        { step: "Principle", title: "성공을 설계하는<br><b>화림의 3대 원칙</b>", desc: "화림의 프로세스는 세 가지 원칙으로 움직입니다. 시행착오를 줄이는 사전 검토, 허가와 디자인을 동시에 진행하는 시간 단축, 그리고 고객과 화림의 역할을 명확히 나누는 투명한 파트너십입니다.\n\n이 원칙이 있어야 캠핑장 개발이 감정이나 추측이 아니라 데이터와 절차를 기준으로 진행됩니다.", outputs: ["시행착오 최소화 시스템", "시간 단축형 병렬 진행", "투명한 역할 분담", "예측 가능한 프로젝트 관리"], media: "https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8" },
+        { step: "Phase 1", title: "먼저 땅을 읽습니다.<br><b>현장 정밀 진단</b>", desc: "캠핑장 개발의 첫 단계는 도면을 그리는 것이 아니라 현장을 읽는 것입니다. 진입로, 경사, 배수, 전기 인입, 오수처리 위치, 주변 민원 가능성은 나중에 사업비와 허가 결과를 크게 바꿉니다.\n\n화림은 현장 방문과 드론 측량, 지형 3D 맵핑을 통해 눈으로 놓치기 쉬운 리스크를 초기에 확인합니다.", outputs: ["현장 체크리스트", "드론 촬영 자료", "지형 3D 맵핑", "진입로·배수·경사 리스크 검토"], media: "https://lh3.googleusercontent.com/d/1achGGTLXPPCmEDsH1Y6PNxBuP7Uunoie" },
+        { step: "Phase 2", title: "예쁜 캠핑장이 아니라<br><b>팔리는 캠핑장</b>을 기획합니다.", desc: "좋은 캠핑장은 단순히 예쁜 공간이 아닙니다. 주변 경쟁업체의 가격, 예약률, 객실 구성, 고객층, 접근성, 지역 관광자원까지 분석해야 실제 수익 구조가 보입니다.\n\n화림은 경쟁 캠핑장과 예약 데이터를 기반으로 이 땅에 맞는 콘셉트, 객실 구성, 운영 방향을 설정합니다.", outputs: ["경쟁업체 분석", "예약률 검토", "시장 포지션 설정", "캠핑장 콘셉트 방향 도출"], media: "https://lh3.googleusercontent.com/d/107GCJ1_B3fcRXeKYW9uibAm2a3ZSRev0" },
+        { step: "Phase 3", title: "통과를 목적으로 하는<br><b>전략적 인허가 설계</b>", desc: "캠핑장 개발은 지자체 판단과 관계부서 협의에서 변수가 많이 생깁니다. 그래서 본격적인 설계에 들어가기 전, 사전심사와 기초 서류 검토를 통해 허가 가능성과 보완 방향을 먼저 확인해야 합니다.\n\n이 과정은 불필요한 설계비 낭비와 뒤늦은 방향 전환을 줄이는 안전장치입니다.", outputs: ["사전심사청구서", "토지이용계획 검토", "위치도·배치도 준비", "관계부서 협의 방향 정리"], media: "https://lh3.googleusercontent.com/d/1oZDyRzKYVTbWPRmbr1_Xx0-2uxqDyrNz" },
+        { step: "Phase 4", title: "땅의 조건과 시장성을 묶어<br><b>1차 기획안</b>을 만듭니다.", desc: "현장 조건과 시장조사 결과가 모이면 그때부터 기획안이 만들어집니다. 어디에 숙박동을 놓을지, 공용시설은 어디가 좋은지, 차량 동선과 보행 동선은 어떻게 나눌지, 조망과 프라이버시는 어떻게 확보할지 결정합니다.\n\n이 단계는 단순 배치가 아니라 사업의 방향을 시각적으로 정리하는 과정입니다.", outputs: ["입지 분석", "시장 분석", "캠핑장 기획 방향 설정", "1차 배치계획안 제작"], media: "https://lh3.googleusercontent.com/d/1eALeJVAy6LL8iX2G87dDxfW7Qe51rUB3" },
+        { step: "Phase 5", title: "고객과 함께 검토하고<br><b>최종 방향을 확정</b>합니다.", desc: "기획안은 화림이 일방적으로 정하는 것이 아니라 고객과 함께 검토해야 합니다. 이 단계에서 사업 방향, 규모, 예산, 디자인 콘셉트, 허가 전략을 함께 확인합니다.\n\n회의 후에는 고객 의견과 행정 기준을 반영해 인허가 접수 전 최종 수정안을 정리합니다. 이 과정을 거치면 이후 설계 변경과 불필요한 수정이 크게 줄어듭니다.", outputs: ["기획안 발표", "전체 회의", "고객 의견 반영", "인허가 접수 전 최종 수정안 확정"], media: "https://lh3.googleusercontent.com/d/1HhBgYydkeACaBhhoWQh-xZ2h7VBg2tcU" },
+        { step: "Phase 6", title: "그림이 아니라<br><b>허가를 위한 설계</b>로 들어갑니다.", desc: "이 단계부터는 보기 좋은 그림이 아니라 허가를 위한 도면 작업으로 전환됩니다. 건축, 토목, 개발행위 기준을 맞추고 지자체 보완 가능성을 고려해 접수 가능한 자료를 만듭니다.\n\n빠르게 그리는 폭적이 아니라, 허가 과정에서 흔들리지 않도록 기준을 맞추는 것이 핵심입니다.", outputs: ["실사형 하이엔드 3D 렌더링", "고객 의사결정용 시뮬레이션", "사전 마케팅용 시각 자료"], media: "https://lh3.googleusercontent.com/d/1AH2FWiae16psg2fIJllYr0yOoCiP8tLh" },
+        { step: "Phase 7", title: "상상 속 캠핑장을<br><b>눈앞의 현실</b>로 보여드립니다.", desc: "3D 시각화는 단순히 예쁜 이미지를 만드는 작업이 아닙니다. 고객, 투자자, 금융기관, 시공팀이 같은 그림을 보고 판단할 수 있도록 사업의 완성 모습을 구체화하는 과정입니다.\n\n화림은 스케치업, AI 디자인, 렌더링, 트윈모션 작업을 통해 배치와 분위기, 동선, 공간감을 눈으로 확인할 수 있게 만듭니다.", outputs: ["스케치업 모델링", "AI 디자인", "고해상도 렌더링", "조감도", "트윈모션 영상 자료"], media: "https://lh3.googleusercontent.com/d/164hKwWPwrc3GxSEqPN6FJ8_kAgUVPWkm" },
+        { step: "Phase 8", title: "허가 이후까지 연결하는<br><b>최종 보고와 자금 실행 준비</b>", desc: "허가가 완료되면 끝이 아니라 실제 사업 실행이 시작됩니다. 최종 결과를 정리하고, 시공 범위와 준비사항, 예상 일정, 필요한 서류를 한 번에 확인할 수 있어야 합니다.\n\n화림은 최종 결과 보고서와 시공 안내 자료를 정리하고, 관광진흥개발기금 신청 준비와 금융기관 협의에 필요한 자료까지 연결합니다.", outputs: ["최종 결과 보고서", "시공 안내 자료", "금융 조달 지원"], media: "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" }
+      ],
+      estimate: {
+        title: "프리미엄 컨설팅 패키지",
+        desc: "고객님의 비전과 프로젝트 규모에 맞춘 최적의 기획 솔루션을 제안합니다.<br>모든 패키지는 1:1 전담 매니저가 배정되어 체계적으로 진행됩니다.",
+        media: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80",
+        pkgs: [
+          {
+            name: "BASIC",
+            sub: "신속하고 명확한 사업성 기본 검토",
+            price: "5,000,000",
+            popular: false,
+            features: ["현장 기본 조사 및 드론 촬영", "기본 건축 법규 및 인허가 검토", "2D 배치도 및 평면도 제공", "개략적인 사업 수지 분석"],
+            media: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
+          },
+          {
+            name: "STANDARD",
+            sub: "완벽한 인허가 및 3D 시각화 솔루션",
+            price: "15,000,000",
+            popular: true,
+            features: ["BASIC 패키지 내용 전체 포함", "초정밀 드론 3D 지형 맵핑", "지자체 심의 대응 및 인허가 진행", "하이엔드 3D 렌더링 (외부 3컷)", "상세 공정별 마스터 견적 산출"],
+            media: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80"
+          },
+          {
+            name: "PREMIUM",
+            sub: "시공 및 자금조달을 위한 턴키 솔루션",
+            price: "30,000,000",
+            popular: false,
+            features: ["STANDARD 패키지 내용 전체 포함", "시네마틱 3D 홍보 영상 제작", "투자 유치용 전문 사업계획서", "금융 조달(기금 등) 컨설팅 지원", "결벽에 가까운 마스터 체크리스트"],
+            media: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
+          }
+        ]
       },
-      {
-        "name": "PREMIUM",
-        "sub": "<p> 프리미엄은 제한된 업무 지원이 아니라 화림과 고객이 하나의 팀이 되어 처음부터 끝까지 만들어가는 <strong>통합 개발 파트너십</strong>입니다. </p>[캠핑장 개발을 처음부터 제대로 시작하고 싶은 고객]",
-        "price": "38,810,000",
-        "popular": false,
-        "features": [
-          "사전심사 검토",
-          "관광진흥개발기금 한도 검토",
-          "시장조사 예매율 분석",
-          "드론맵핑 지형 측량",
-          "사업기획안 및 방향 설정",
-          "토목설계(실질도면)",
-          "건축설계(실질도면)",
-          "3D설계(실질도면)",
-          "인테리어(실질도면)\n개발행위 심의 통과",
-          "사업계획서 제작",
-          "관광진흥개발기금 융자 진행 지원",
-          "공사계획 및 공사 견적서 산출"
-        ],
-        "media": "https://lh3.googleusercontent.com/d/1M9b9jM2CXRpR6FpupssiEbNmzjH6Id-y"
+      philosophy: {
+        bgMedia: "https://images.unsplash.com/photo-1464822759023-fea09fc8f395?auto=format&fit=crop&w=1800&q=80",
+        title: "독자적 시스템과 변치 않는 철학", subtitle: "HWARIM CONSULTING VISION",
+        content: "<h3>대지를 훼손하지 않는 시스템</h3><p>우리의 시스템은 자연의 가치를 보존하는 것에서 시작합니다. 3D 지형 맵핑을 통해 산림 훼손을 최소화하며, 주어진 대지가 품은 공간의 가치를 극대화합니다.</p><span class='highlight'>“자연과 건축은 대립하지 않습니다.<br>완벽하게 융화되어야 합니다.”</span><h3>숫자로 증명하는 투명한 기획</h3><p>사업의 성공은 철저한 데이터에서 출발합니다. 화림은 감언이설 대신 객관적인 수치와 견적으로 고객에게 가장 확실한 비전을 제시합니다. 투명함이 곧 화림의 자신감입니다.</p><div style='margin-top:54px; text-align:right;'><p style='font-size:15px; color:#bdbdbd; margin:0;'>주식회사 화림건설 대표이사</p><p style='font-size:20px; color:#ffffff; font-weight:700; margin:6px 0 0 0;'>정치훈</p></div>"
+      },
+      seo: {
+        title: "HWARIM | 프리미엄 공간 기획",
+        desc: "막연한 상상을 실행 가능한 계획으로 만들어 드립니다.",
+        image: "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH"
       }
-    ]
-  },
-  "philosophy": {
-    "bgMedia": "https://lh3.googleusercontent.com/d/1sRzvfATFsx0b-x6PAl8O2KIGavs0KSYy",
-    "title": "독자적 시스템과 변치 않는 철학",
-    "subtitle": "HWARIM CONSULTING VISION",
-    "content": "<div style=\"max-width:860px; margin:0 auto; padding:70px 28px; background:#050505; color:#f5f5f5; font-family:'Pretendard','Noto Sans KR','Apple SD Gothic Neo',sans-serif; line-height:1.9; word-break:keep-all;\">\n\n  <div style=\"text-align:center; margin-bottom:80px;\">\n    <p style=\"margin:0 0 22px 0; font-size:13px; letter-spacing:8px; color:#d6a536; font-weight:700;\">\n      HWARIM CONSULTING VISION\n    </p>\n\n    <h1 style=\"margin:0; font-size:42px; line-height:1.35; font-weight:500; letter-spacing:-1.5px; color:#ffffff;\">\n      독자적 시스템과<br style=\"display:none;\"> 변치 않는 철학\n    </h1>\n\n    <div style=\"width:54px; height:2px; background:#d6a536; margin:34px auto 0 auto;\"></div>\n  </div>\n\n  <div style=\"max-width:680px; margin:0 auto;\">\n\n    <p style=\"font-size:18px; color:#ffffff; font-weight:600; margin:0 0 34px 0;\">\n      조화로움이 숲을 이룬다.\n    </p>\n\n    <p style=\"font-size:16px; color:#e8e8e8; margin:0 0 26px 0;\">\n      처음부터 솔직하게 말씀드리겠습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      설계자가 도면을 그리고, 시공자가 그 도면대로 짓는 것. 이것이 일반적인 원칙입니다.\n      하지만 저는 수많은 캠핑장 현장을 직접 경험하면서, 그 원칙만으로는 부족하다는 사실을 너무 많이 보았습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      도면 위의 텐트 사이트는 군대 막사처럼 일렬로 정리되어 있고,\n      땅이 가진 자연스러운 곡선과 고저차는 사라진 채 평탄화됩니다.\n      설계자는 땅의 가치를 극대화하는 방향으로 선을 긋지만,\n      실제 고객이 텐트 앞에 앉아 처음 마주하게 될 뷰,\n      길을 걸으며 느끼는 공간감,\n      화장실과 개수대까지의 동선,\n      야영장 전체의 분위기와 흐름은 도면 안에 충분히 담기지 못하는 경우가 많습니다.\n    </p>\n\n    <div style=\"margin:46px 0; padding:28px 30px; border-left:3px solid #d6a536; background:#111111;\">\n      <p style=\"font-size:20px; line-height:1.7; color:#ffffff; font-weight:600; margin:0;\">\n        캠핑장 설계는 주택단지 설계와<br>\n        근본적으로 다릅니다.\n      </p>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      캠핑장은 단순히 시설을 배치하는 일이 아닙니다.\n      땅의 결을 읽고, 사람의 움직임을 예측하고,\n      머무는 시간의 감각을 설계하는 일입니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      이 차이를 이해하지 못한 채 도면대로만 공사를 진행하면,\n      그 대가는 결국 비용으로 돌아옵니다.\n      반드시 명심하셔야 합니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      현장에서 이상하다는 것을 알았을 때는 이미 늦은 경우가 많습니다.\n      착공 후 도면과 실제 현장이 맞지 않는 것을 발견하면 어떻게 될까요?\n    </p>\n\n    <div style=\"margin:42px 0; padding:32px 30px; background:#0f0f0f; border:1px solid #2a2a2a; border-radius:18px;\">\n      <p style=\"font-size:15px; color:#d6a536; font-weight:700; letter-spacing:1px; margin:0 0 18px 0;\">\n        변경이 늦어졌을 때 발생하는 과정\n      </p>\n\n      <p style=\"font-size:16px; color:#eeeeee; margin:0;\">\n        설계 변경 요청 → 설계사 검토 → 지자체 변경 신청 → 지자체 검토 → 완료 후 공사 재개\n      </p>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      이 과정은 짧으면 2주, 길면 한 달 이상 걸릴 수 있습니다.\n      그 기간 동안 공사는 멈춥니다.\n      현장은 기다리지 않습니다.\n      인건비와 장비비는 계속 발생합니다.\n      결국 그 비용은 고스란히 건축주의 부담으로 돌아옵니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      더 좋은 방향으로 바꾸려 했던 선택이,\n      오히려 건축주에게 피해가 되는 구조가 되어버리는 것입니다.\n      약과 사약 사이에서 선택해야 하는 상황.\n      어떻게 해도 손해가 되는 구조입니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      저는 이런 장면을 너무 많이 보았습니다.\n    </p>\n\n    <div style=\"margin:52px 0 30px 0;\">\n      <p style=\"font-size:13px; color:#d6a536; font-weight:700; letter-spacing:3px; margin:0 0 14px 0;\">\n        HWARIM SYSTEM\n      </p>\n\n      <h2 style=\"font-size:30px; line-height:1.45; color:#ffffff; font-weight:600; letter-spacing:-1px; margin:0;\">\n        화림은 공사를 멈추지 않기 위해<br>\n        처음부터 시스템을 만듭니다\n      </h2>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      화림에도 현장 변경은 반드시 생깁니다.\n      하지만 추가 비용 없이, 공사를 멈추지 않고,\n      현장에서 바로 대응할 수 있는 조직력을 갖추기 위해 시스템을 만들었습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      준공 단계도 마찬가지입니다.\n      일반 설계사들은 준공 시점에 트집을 잡고 추가 비용을 요구하는 경우가 적지 않습니다.\n      하지만 화림에는 그런 방식이 없습니다.\n    </p>\n\n    <p style=\"font-size:18px; color:#ffffff; font-weight:600; margin:38px 0 24px 0;\">\n      이유는 단 하나입니다.\n    </p>\n\n    <div style=\"margin:36px 0; padding:34px 30px; background:linear-gradient(135deg,#141414,#080808); border:1px solid #333333; border-radius:22px;\">\n      <p style=\"font-size:22px; line-height:1.65; color:#ffffff; font-weight:600; margin:0;\">\n        화림의 최종 목표는<br>\n        단순한 설계 완료가 아니라,<br>\n        건축주의 캠핑장이 실제로 오픈하는 것입니다.\n      </p>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      그래서 저는 직접 설계팀을 찾아다녔습니다.\n      캠핑장이라는 특수한 사업을 이해하고,\n      건축주의 입장에서 끝까지 함께 움직일 수 있는 전문가들을 만나기 위해\n      수많은 설계자들을 방문했습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      좋은 건축주를 만나고, 좋은 일감을 연결해줄 수 있다는 확신을 주며,\n      같은 목표를 가진 전문가들을 하나씩 모았습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      그러나 건축주 입장에서 가장 중요한 것은 건축 설계만이 아니었습니다.\n      캠핑장은 건축과 토목이 함께 움직여야 하는 사업입니다.\n      그래서 건축 설계사뿐 아니라 토목 설계사를 찾는 데에도 긴 시간이 걸렸습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      그렇게 모인 팀이 지금 화림과 함께하고 있습니다.\n    </p>\n\n    <div style=\"margin:46px 0; padding:30px; background:#101010; border-radius:18px;\">\n      <p style=\"font-size:16px; color:#eeeeee; margin:0 0 18px 0;\">\n        건축사, 토목 설계사, 시공팀이 처음부터 같은 자리에 앉아 같은 방향을 봅니다.\n      </p>\n\n      <p style=\"font-size:16px; color:#eeeeee; margin:0;\">\n        회의는 건축주와 함께 진행하고, 변경 사항은 즉시 논의하며,\n        행정 절차는 미리 대응합니다.\n      </p>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      이제는 이런 악순환이 없습니다.\n    </p>\n\n    <div style=\"margin:36px 0; padding:28px 30px; background:#080808; border:1px solid #242424; border-radius:18px;\">\n      <p style=\"font-size:16px; color:#cfcfcf; margin:0 0 12px 0;\">“설계사에게 전달해 주세요.”</p>\n      <p style=\"font-size:16px; color:#cfcfcf; margin:0 0 12px 0;\">“건축주가 다시 전달해 주세요.”</p>\n      <p style=\"font-size:16px; color:#cfcfcf; margin:0 0 12px 0;\">“내용이 와전됐습니다.”</p>\n      <p style=\"font-size:16px; color:#cfcfcf; margin:0 0 12px 0;\">“다시 연락드리겠습니다.”</p>\n      <p style=\"font-size:16px; color:#cfcfcf; margin:0;\">“시간이 더 필요합니다.”</p>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      이런 과정에서 생기는 지연과 오해를 줄이기 위해,\n      화림은 기획과 설계 단계부터 건축주와 설계자, 시공자가 함께 소통할 수 있는 구조를 운영하고 있습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      어디에서 논의가 오갔는지, 누가 무엇을 결정했는지,\n      어떤 이유로 변경되었는지.\n      모든 과정은 투명하게 공유되고 기록됩니다.\n    </p>\n\n    <div style=\"margin:58px 0 30px 0;\">\n      <p style=\"font-size:13px; color:#d6a536; font-weight:700; letter-spacing:3px; margin:0 0 14px 0;\">\n        HONEST COST\n      </p>\n\n      <h2 style=\"font-size:30px; line-height:1.45; color:#ffffff; font-weight:600; letter-spacing:-1px; margin:0;\">\n        비용에 대해<br>\n        정직하게 말씀드리겠습니다\n      </h2>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      한 가지 예를 들어보겠습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      형사 사건의 피해자가 되었다면,\n      내 편에서 싸워줄 사람은 누구여야 할까요?\n      경찰입니까, 변호사입니까?\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      그리고 그 변호사가 형사 사건 전문인지,\n      부동산 계약 분쟁 전문인지도 중요하지 않겠습니까?\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      캠핑장을 만들려는 분이 주택단지, 농기계 창고, 빌라, 상가를 주로 설계하던 설계사에게 모든 것을 맡기는 것은\n      영리한 전문가를 찾아가는 일이 아닐 수 있습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      화림의 경험치와 시스템이 담긴 비용에는 이런 것들이 포함되어 있습니다.\n    </p>\n\n    <div style=\"margin:42px 0; padding:34px 30px; background:#111111; border-radius:22px; border:1px solid #2b2b2b;\">\n      <ul style=\"padding-left:20px; margin:0; color:#eeeeee; font-size:16px; line-height:1.9;\">\n        <li>설계 변경이 발생하지 않도록 사전에 막는 과정</li>\n        <li>행정 절차를 선제적으로 파악하고 대응하는 과정</li>\n        <li>어떤 변수가 생겨도 끝까지 끌고 가는 힘</li>\n        <li>건축주가 묻지 않아도 화림이 먼저 챙겨주는 수십 가지 디테일</li>\n        <li>건축·토목 설계팀이 함께 고민하고 역할을 나누는 구조</li>\n        <li>야영장 오픈 후 고객에게 당당하게 보여줄 수 있는 공간의 완성도</li>\n      </ul>\n    </div>\n\n    <div style=\"margin:46px 0; padding:34px 30px; border-top:1px solid #333333; border-bottom:1px solid #333333;\">\n      <p style=\"font-size:21px; line-height:1.7; color:#ffffff; font-weight:600; margin:0;\">\n        단순히 도면 몇 장을 그리는 비용이 아닙니다.<br>\n        단순히 공사를 진행하는 비용도 아닙니다.<br>\n        시작부터 오픈까지, 건축주가 혼자 감당하기 어려운 과정을 함께 책임지는 비용입니다.\n      </p>\n    </div>\n\n    <div style=\"margin:58px 0 30px 0;\">\n      <p style=\"font-size:13px; color:#d6a536; font-weight:700; letter-spacing:3px; margin:0 0 14px 0;\">\n        FINAL MESSAGE\n      </p>\n\n      <h2 style=\"font-size:30px; line-height:1.45; color:#ffffff; font-weight:600; letter-spacing:-1px; margin:0;\">\n        마지막으로<br>\n        꼭 드리고 싶은 말\n      </h2>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      이 시스템은 제가 혼자 책상 앞에서 공부해 만든 것이 아닙니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      현장에서 틀리고, 후회하고, 고치고, 다시 부딪히는 과정을 반복하며 만들어졌습니다.\n      지금도 전국의 지자체마다 다른 기준과 현장의 변수를 경험하며 계속 업그레이드되고 있습니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      100% 완벽하다고 말씀드릴 수는 없습니다.\n      하지만 한 가지는 분명히 말씀드릴 수 있습니다.\n    </p>\n\n    <div style=\"margin:42px 0; padding:38px 32px; background:#151515; border-radius:24px; border:1px solid #3a3a3a;\">\n      <p style=\"font-size:24px; line-height:1.65; color:#ffffff; font-weight:700; margin:0;\">\n        이 업계에서 건축주의 편에 서서<br>\n        이렇게까지 싸우는 회사는 드뭅니다.\n      </p>\n    </div>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      함께 일하는 설계팀에서도 이런 말을 합니다.\n    </p>\n\n    <blockquote style=\"margin:36px 0; padding:30px 32px; background:#0d0d0d; border-left:3px solid #d6a536; color:#eeeeee; font-size:18px; line-height:1.8;\">\n      “20년 일하면서 이렇게까지 하는 회사는 처음 봤다.\n      그래도 지금 시장에서 살아남으려면 이렇게 해야 하는 게 맞다.”\n    </blockquote>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      그 말이 저에게는 가장 큰 확인이었습니다.\n      우리가 가고 있는 방향이 맞다는 것.\n      그리고 그 방향이 결국 고객에게도, 업계 전체에도 선한 영향력이 될 수 있다는 것.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      한번 생각해 보셨으면 합니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      캠핑장 사업 기획부터 시작해 부지 검토, 인허가, 설계, 시공, 준공,\n      오픈 당일 야영장 테이블과 식기를 세팅하고,\n      안내판을 세우고,\n      소화기 하나를 제자리에 비치하는 일까지.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      이 모든 과정을 건축주 혼자 감당해야 한다면 어떻겠습니까?\n    </p>\n\n    <p style=\"font-size:18px; color:#ffffff; font-weight:600; margin:0 0 28px 0;\">\n      저라면, 야영장을 시작하지 않았을 것입니다.\n    </p>\n\n    <p style=\"font-size:16px; color:#dcdcdc; margin:0 0 26px 0;\">\n      화림이 건축주 곁에 있는 이유가 바로 여기에 있습니다.\n      제가 이 시스템을 만든 이유도, 지금까지 이 일을 계속하는 이유도 바로 그것입니다.\n    </p>\n\n    <div style=\"margin:60px 0 0 0; padding:42px 32px; text-align:center; background:linear-gradient(135deg,#111111,#050505); border-radius:26px; border:1px solid #2c2c2c;\">\n      <p style=\"font-size:27px; line-height:1.6; color:#ffffff; font-weight:700; margin:0 0 22px 0;\">\n        조화로움이 모여<br>\n        하나의 숲을 이룹니다.\n      </p>\n\n      <p style=\"font-size:16px; line-height:1.9; color:#dcdcdc; margin:0;\">\n        그리고 화림은 그 숲이 끝까지 완성될 수 있도록,<br>\n        건축주의 곁에서 함께하겠습니다.\n      </p>\n    </div>\n\n    <div style=\"margin-top:54px; text-align:right;\">\n      <p style=\"font-size:15px; color:#bdbdbd; margin:0;\">\n        주식회사 화림건설 대표이사\n      </p>\n      <p style=\"font-size:20px; color:#ffffff; font-weight:700; margin:6px 0 0 0;\">\n        정치훈\n      </p>\n    </div>\n\n  </div>\n</div>"
-  },
-  "seo": {
-    "title": "HWARIM | 화림 프로세스 안내",
-    "desc": "막연한 상상을 실행 가능한 계획으로 만들어 드립니다.",
-    "image": "https://lh3.googleusercontent.com/d/1obPxOmgGrsvginw21o_D-BFKL3NKlChs"
-  }
-};
+    };
     /* --- DATA_END --- */
 
     let siteData = JSON.parse(JSON.stringify(defaultData));
     let app, auth, db, appId, docRef;
 
     async function initializeSystem() {
-      const localData = localStorage.getItem('hwarim_v25_data'); 
+      const localData = localStorage.getItem('hwarim_v26_data'); 
       if (localData) { 
         try { 
           const parsed = JSON.parse(localData); 
-          // 과거 데이터 호환성 가드
           if(!parsed.estimate || !parsed.estimate.pkgs) parsed.estimate = JSON.parse(JSON.stringify(defaultData.estimate));
           if(!parsed.seo) parsed.seo = JSON.parse(JSON.stringify(defaultData.seo));
           siteData = parsed;
@@ -1537,7 +498,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
                 if(!data.estimate || !data.estimate.pkgs) data.estimate = JSON.parse(JSON.stringify(defaultData.estimate));
                 if(!data.seo) data.seo = JSON.parse(JSON.stringify(defaultData.seo));
                 siteData = data;
-                localStorage.setItem('hwarim_v25_data', JSON.stringify(siteData)); 
+                localStorage.setItem('hwarim_v26_data', JSON.stringify(siteData)); 
                 renderPublicUI(siteData);
                 bindInteractions();
               }
@@ -1656,7 +617,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         if(!data.estimate || !data.estimate.pkgs) data.estimate = JSON.parse(JSON.stringify(defaultData.estimate));
         let html = `<div class="cinematic-scroll-container" id="estimate-scroll-container">`;
         
-        // ★ 견적 시뮬레이션 인트로 슬라이드 (가장 첫 화면)
         html += `
           <div class="cinematic-slide" id="est-slide-intro">
             ${generateMediaTag(data.estimate.media, 'slide-media')}
@@ -1668,7 +628,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
             </div>
           </div>`;
 
-        // 3가지 패키지 슬라이드
         data.estimate.pkgs.forEach((pkg, idx) => {
           let featuresHtml = (pkg.features || []).map(f => `<li>${f}</li>`).join('');
           html += `
@@ -1727,7 +686,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
                 <h1 style="font-size:clamp(36px, 5vw, 54px); font-weight:300; color:var(--text-100);" class="fade-up active d-2">${data.philosophy.title}</h1>
               </div>
             </div>
-            <div style="max-width:800px; margin:0 auto; padding:80px 5% 200px; font-size:18px; line-height:2.2; color:var(--text-200); word-break:keep-all;" class="fade-up active d-3">
+            <div style="max-width:800px; margin:0 auto; padding:80px 5% 200px; font-size:18px; line-height:2.2; color:var(--text-200); font-weight: 300; text-align: justify; word-break: keep-all;" class="fade-up active d-3">
               ${data.philosophy.content}
             </div>
           </div>
@@ -1931,7 +890,6 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
     }
 
     function buildAdminForms() {
-      // 혹시라도 과거 캐시가 남아있을 경우 튕기지 않도록 방어 코드 추가
       if(!siteData.seo) siteData.seo = JSON.parse(JSON.stringify(defaultData.seo));
       if(!siteData.estimate || !siteData.estimate.pkgs) siteData.estimate = JSON.parse(JSON.stringify(defaultData.estimate));
 
@@ -2047,7 +1005,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       try {
         syncDataFromInputs(); 
         
-        localStorage.setItem('hwarim_v25_data', JSON.stringify(siteData));
+        localStorage.setItem('hwarim_v26_data', JSON.stringify(siteData));
         
         if (docRef) { 
           try { await setDoc(docRef, siteData); } 
@@ -2069,66 +1027,37 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       try {
         syncDataFromInputs(); 
 
-        let html = "";
-        try {
-          const response = await fetch(location.href);
-          if (!response.ok) throw new Error("Network response was not ok");
-          html = await response.text();
-          if (!html) throw new Error("Empty response");
-        } catch (err) {
-          // fetch가 실패하는 환경(blob, file 등)을 위한 Fallback
-          const clonedHtml = document.documentElement.cloneNode(true);
-          
-          const body = clonedHtml.querySelector('body');
-          if (body) body.classList.remove('no-scroll');
-          
-          const adminView = clonedHtml.querySelector('#admin-view');
-          if (adminView) adminView.classList.remove('active');
-          
-          const blackout = clonedHtml.querySelector('#blackout-curtain');
-          if (blackout) blackout.classList.remove('active');
-          
-          const detailPanel = clonedHtml.querySelector('#detail-panel');
-          if (detailPanel) detailPanel.classList.remove('active');
-          
-          const renderCards = clonedHtml.querySelector('#render-cards');
-          if (renderCards) renderCards.innerHTML = '';
-          
-          const bgGallery = clonedHtml.querySelector('#bg-gallery');
-          if (bgGallery) bgGallery.innerHTML = '<div class="bg-overlay"></div>';
-          
-          const detailRoot = clonedHtml.querySelector('#detail-root');
-          if (detailRoot) detailRoot.innerHTML = '';
-
-          html = "<!DOCTYPE html>\n" + clonedHtml.outerHTML;
+        if (location.protocol === 'file:') {
+          alert("⚠️ 바탕화면에서 직접 연 파일(file://)에서는 다운로드가 제한됩니다.\n반드시 깃허브 홈페이지(https://...)로 접속한 상태에서 다운로드를 진행해 주세요!");
+          btn.textContent = originalText;
+          return;
         }
+
+        const response = await fetch(location.href);
+        if (!response.ok) throw new Error("Network response was not ok");
+        let html = await response.text();
         
-        // ★ 다운로드 시, 코드 안의 오픈그래프(썸네일) 태그를 수정한 데이터로 교체
         if(siteData.seo) {
-          html = html.replace(/<meta property="og:title" content="HWARIM | 화림 프로세스 안내"]*"/g, `<meta property="og:title" content="HWARIM | 화림 프로세스 안내"`);
-          html = html.replace(/<meta property="og:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다."]*"/g, `<meta property="og:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다."`);
-          html = html.replace(/<meta property="og:image" content="https://lh3.googleusercontent.com/d/1obPxOmgGrsvginw21o_D-BFKL3NKlChs"]*"/g, `<meta property="og:image" content="https://lh3.googleusercontent.com/d/1obPxOmgGrsvginw21o_D-BFKL3NKlChs"`);
-          html = html.replace(/<title>HWARIM | 화림 프로세스 안내</title>`);
+          html = html.replace(/<meta property="og:title" content="[^"]*"/g, `<meta property="og:title" content="${siteData.seo.title}"`);
+          html = html.replace(/<meta property="og:description" content="[^"]*"/g, `<meta property="og:description" content="${siteData.seo.desc}"`);
+          html = html.replace(/<meta property="og:image" content="[^"]*"/g, `<meta property="og:image" content="${siteData.seo.image}"`);
+          html = html.replace(/<title>.*?<\/title>/g, `<title>${siteData.seo.title}</title>`);
         }
         
         const startMarker = '/* --- DATA_START --- */';
         const endMarker = '/* --- DATA_END --- */';
         
-        const startIndex = html.indexOf(startMarker);
-        const endIndex = html.indexOf(endMarker);
-        
-        if(startIndex !== -1 && endIndex !== -1) {
-          const before = html.substring(0, startIndex);
-          const after = html.substring(endIndex + endMarker.length);
-          const newDataString = startMarker + '\n    const defaultData = ' + JSON.stringify(siteData, null, 2) + ';\n    ' + endMarker;
+        if (html.includes(startMarker) && html.includes(endMarker)) {
+          const before = html.split(startMarker)[0];
+          const after = html.split(endMarker)[1];
+          const newDataString = '\\n    const defaultData = ' + JSON.stringify(siteData, null, 2) + ';\\n    ';
           
-          html = before + newDataString + after;
+          html = before + startMarker + newDataString + endMarker + after;
           
           const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          // ★ 파일명을 무조건 index.html로 강제 고정하여 깃허브에서 바로 인식하도록 설정
           a.download = 'index.html';
           document.body.appendChild(a);
           a.click();
@@ -2137,16 +1066,16 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
           
           btn.textContent = "다운로드 완료!";
         } else {
-          alert("코드에서 데이터 영역을 찾을 수 없어 추출에 실패했습니다. (캐시 문제일 수 있습니다)");
+          alert("코드에서 데이터 영역을 찾을 수 없어 추출에 실패했습니다.");
         }
       } catch (e) {
         console.error(e);
-        alert("파일 추출에 실패했습니다. 관리자에게 문의하세요.");
+        alert("파일 추출에 실패했습니다. 깃허브 웹사이트로 접속하셨는지 주소창을 확인해 주세요.");
       }
       setTimeout(() => { btn.textContent = originalText; }, 3000);
     };
 
     window.addEventListener('DOMContentLoaded', initializeSystem);
   </script>
-
-</body></html>
+</body>
+</html>
