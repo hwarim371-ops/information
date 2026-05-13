@@ -352,11 +352,21 @@
        ==================================================== */
     function convertDriveUrl(url) {
       if (!url) return url;
-      // 구글 드라이브 공유 링크 감지 (예: https://drive.google.com/file/d/1aBcDeFg.../view)
-      const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (match && match[1]) {
-        // 웹사이트 직접 렌더링 주소로 자동 변환
-        return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+      let id = null;
+      
+      // 1. /file/d/ID 형식 (구글 드라이브 기본 공유 링크)
+      const match1 = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (match1 && match1[1]) id = match1[1];
+      
+      // 2. id=ID 형식 (이미 변환되었거나 다른 형태의 링크 복사 시)
+      if (!id) {
+        const match2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (match2 && match2[1]) id = match2[1];
+      }
+
+      if (id) {
+        // 구글 최신 보안(핫링킹 차단)을 우회하여 이미지를 직접 띄우는 가장 안정적인 주소망
+        return `https://lh3.googleusercontent.com/d/${id}`;
       }
       return url;
     }
@@ -697,6 +707,7 @@
 
       if(file.type.startsWith('video/')) {
         alert('비디오 파일은 직접 업로드 대신 구글 드라이브 주소를 활용해 주세요.');
+        event.target.value = '';
         return;
       }
 
@@ -705,7 +716,7 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 1200; 
+          const MAX_WIDTH = 1000; // 용량 최적화를 위해 폭을 1000px로 제한
           let scaleSize = MAX_WIDTH / img.width;
           if(scaleSize > 1) scaleSize = 1; 
           
@@ -714,12 +725,12 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           
-          const base64Url = canvas.toDataURL('image/jpeg', 0.7); 
+          const base64Url = canvas.toDataURL('image/jpeg', 0.6); 
           const inputEl = document.getElementById(targetInputId);
           inputEl.value = base64Url;
           
           // 수동으로 이벤트를 발생시켜 구글 드라이브 변환 로직 등을 통과하도록 함
-          inputEl.dispatchEvent(new Event('change'));
+          inputEl.dispatchEvent(new Event('input'));
           
           if(previewId) {
             document.getElementById(previewId).innerHTML = `<img src="${base64Url}" style="width:100%; height:100%; object-fit:cover;">`;
@@ -728,13 +739,27 @@
         img.src = e.target.result;
       }
       reader.readAsDataURL(file);
+      event.target.value = ''; // 여러 장 연속 업로드를 위해 input 초기화
     };
 
     function updatePreview(url, previewBox) {
       if(!previewBox) return;
-      if(!url) previewBox.innerHTML = '<span style="font-size:11px; color:#555;">미리보기</span>';
-      else if(url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) previewBox.innerHTML = `<video src="${url}" muted autoplay loop style="width:100%; height:100%; object-fit:cover;"></video>`;
-      else previewBox.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;" onerror="this.innerHTML='Error'"/>`;
+      if(!url) {
+        previewBox.innerHTML = '<span style="font-size:11px; color:#555;">미리보기</span>';
+      } else if(url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
+        previewBox.innerHTML = `<video src="${url}" muted autoplay loop style="width:100%; height:100%; object-fit:cover;"></video>`;
+      } else {
+        previewBox.innerHTML = '';
+        const img = document.createElement('img');
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.onerror = () => {
+          previewBox.innerHTML = '<span style="color:#ff5555; font-size:11px; text-align:center; padding:5px; line-height:1.4; display:block;">이미지 로드 실패<br>구글 드라이브 [공유 권한]을<br>[모든 사용자]로 변경하세요.</span>';
+        };
+        img.src = url;
+        previewBox.appendChild(img);
+      }
     }
 
     function buildAdminForms() {
@@ -798,20 +823,19 @@
       // Google Drive 자동 변환 및 초기 미리보기 세팅
       document.querySelectorAll('.media-url-input').forEach(input => {
         const pBox = document.getElementById(input.dataset.preview);
-        updatePreview(input.value, pBox);
         
-        // 사용자가 링크를 입력하거나 붙여넣었을 때 (혹은 blur 될 때)
-        input.addEventListener('change', (e) => {
+        // 폼 오픈 시 즉시 변환된 상태로 적용
+        let initialUrl = convertDriveUrl(input.value);
+        if (initialUrl !== input.value) input.value = initialUrl;
+        updatePreview(initialUrl, pBox);
+        
+        // 붙여넣기(입력) 즉시 변환 및 미리보기 업데이트
+        input.addEventListener('input', (e) => {
           let newUrl = convertDriveUrl(e.target.value);
           if(newUrl !== e.target.value) {
-            e.target.value = newUrl; // 구글 드라이브 주소 자동 변환
+            e.target.value = newUrl; 
           }
           updatePreview(newUrl, pBox);
-        });
-        
-        // 실시간 입력 중 미리보기 업데이트
-        input.addEventListener('input', (e) => {
-          updatePreview(e.target.value, pBox);
         });
       });
     }
@@ -842,8 +866,18 @@
         siteData.philosophy.subtitle = document.getElementById('ad-phil-sub').value;
         siteData.philosophy.content = document.getElementById('ad-phil-content').value;
 
+        // 1. 서버 전송 전 로컬 브라우저에 먼저 강제 저장 (HTML 파일 추출용)
         localStorage.setItem('hwarim_v21_data', JSON.stringify(siteData));
-        if (docRef) { await setDoc(docRef, siteData); }
+        
+        // 2. 파이어베이스(서버) 연동 시도
+        if (docRef) { 
+          try {
+            await setDoc(docRef, siteData); 
+          } catch (fbError) {
+            console.error(fbError);
+            alert("⚠️ 안내: 한 번에 업로드한 이미지 총 용량이 커서 클라우드 연동이 중단되었습니다.\n\n하지만 걱정하지 마세요!\n현재 수정한 내용은 컴퓨터에 정상 반영되었으므로, [04. 저장 및 배포] 탭에서 HTML 파일을 추출(다운로드)하여 깃허브에 올리시면 완벽하게 배포됩니다.\n\n(※ 안정적인 운영을 위해 고화질 이미지는 구글 드라이브 주소를 활용하시는 것이 좋습니다.)");
+          }
+        }
 
         renderPublicUI(siteData); bindInteractions(); 
         
