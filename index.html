@@ -144,6 +144,7 @@
     .cinematic-slide { position: relative; width: 100%; height: 100vh; height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always; display: flex; align-items: center; padding: 0 8%; overflow: hidden; }
     
     .slide-media { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: contrast(1.1); transform: scale(1.05); transition: transform 10s linear; }
+    .fullscreen-media { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.45; filter: contrast(1.05) brightness(0.75); }
     .cinematic-slide.active .slide-media { transform: scale(1); opacity: 0.6; } 
     .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.1) 100%); z-index: 1; }
 
@@ -218,19 +219,33 @@
       .admin-tab.active { border-color: var(--accent); }
     }
 
-    #global-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 100000; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+    #global-loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-base); z-index: 100000; display: none !important; justify-content: center; align-items: center; transition: opacity 0.5s ease; animation: loader-failsafe-hide 0.1s ease 1s forwards; }
     .spinner { width: 40px; height: 40px; border: 2px solid transparent; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
     @keyframes spin { 100% { transform: rotate(360deg); } }
+    @keyframes loader-failsafe-hide { to { opacity: 0; visibility: hidden; pointer-events: none; } }
 
   </style>
 </head>
 <body>
 
-  <div id="global-loader"><div class="spinner"></div></div>
+  <div id="global-loader" style="display:none !important;"><div class="spinner"></div></div>
+  <script>
+    (function() {
+      window.setTimeout(function() {
+        var loader = document.getElementById('global-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+          loader.style.display = 'none';
+        }
+      }, 1000);
+    })();
+  </script>
   <div id="blackout-curtain"></div>
 
   <main id="public-view">
     <div class="bg-gallery" id="bg-gallery">
+      <div class="bg-image active" id="bg-img-default" style="background-image: url('https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH');"></div>
       <div class="bg-overlay"></div>
     </div>
     
@@ -242,10 +257,44 @@
     </header>
 
     <div class="hero-content">
-      <h1 class="hero-title" id="render-hero-title"></h1>
+      <h1 class="hero-title" id="render-hero-title">막연한 상상을<br><b>실행 가능한 계획</b>으로.</h1>
     </div>
 
-    <div class="card-arena" id="render-cards"></div>
+    <div class="card-arena" id="render-cards">
+      <div class="card-wrapper" data-idx="0">
+        <div class="card" data-id="process">
+          <img class="card-media" src="https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH" alt="프로세스 안내" loading="lazy" />
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div class="card-number">01</div>
+            <h2 class="card-title">프로세스 안내</h2>
+            <div class="card-arrow">Explore <span>→</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-wrapper" data-idx="1">
+        <div class="card" data-id="philosophy">
+          <img class="card-media" src="https://lh3.googleusercontent.com/d/1GFU9Uqv3geJ3DL4l5OgYwbpSBxEuNw0H" alt="컨설팅 철학" loading="lazy" />
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div class="card-number">02</div>
+            <h2 class="card-title">컨설팅 철학</h2>
+            <div class="card-arrow">Explore <span>→</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-wrapper" data-idx="2">
+        <div class="card" data-id="estimate">
+          <img class="card-media" src="https://lh3.googleusercontent.com/d/1dG0r_eDhEpagLjsF-6T6xBF1nDkByYto" alt="견적 시뮬레이션" loading="lazy" />
+          <div class="card-overlay"></div>
+          <div class="card-content">
+            <div class="card-number">03</div>
+            <h2 class="card-title">견적 시뮬레이션</h2>
+            <div class="card-arrow">Explore <span>→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <section id="detail-panel">
@@ -367,11 +416,7 @@
     </div>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
+  <script>
     /* ====================================================
        Google Drive URL Auto-Converter
        ==================================================== */
@@ -393,7 +438,8 @@
     /* ====================================================
        Data Model (v26 - Error Free Master)
        ==================================================== */
-    /* --- DATA_START --- */\n    const defaultData = {
+    /* --- DATA_START --- */
+    const defaultData = {
   "hero": {
     "title": "막연한 상상을<br><b>실행 가능한 계획</b>으로.",
     "media": "https://lh3.googleusercontent.com/d/1ddnqvFphbvmDYRkQVYU7aj8NOlj-1vVH"
@@ -612,30 +658,119 @@
     "desc": "막연한 상상을 실행 가능한 계획으로 만들어 드립니다.",
     "image": "https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8"
   }
-};\n    /* --- DATA_END --- */
+};
+    /* --- DATA_END --- */
 
     let siteData = JSON.parse(JSON.stringify(defaultData));
-    let app, auth, db, appId, docRef;
+    let app, auth, db, appId, docRef, saveRemoteData = null;
+    const STORAGE_KEY = 'hwarim_v27_data';
+
+    function getStoredData() {
+      try {
+        return window.localStorage ? localStorage.getItem(STORAGE_KEY) : null;
+      } catch(e) {
+        return null;
+      }
+    }
+
+    function setStoredData(data) {
+      try {
+        if (window.localStorage) localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch(e) {
+        console.warn('브라우저 저장소를 사용할 수 없습니다.', e);
+      }
+    }
+
+    function removeStoredData() {
+      try {
+        if (window.localStorage) localStorage.removeItem(STORAGE_KEY);
+      } catch(e) {}
+    }
+
+    function cloneDefaultData() {
+      return JSON.parse(JSON.stringify(defaultData));
+    }
+
+    function mergeObject(defaultValue, savedValue) {
+      if (!savedValue || typeof savedValue !== 'object' || Array.isArray(savedValue)) return defaultValue;
+      return { ...defaultValue, ...savedValue };
+    }
+
+    function mergeArray(defaultArray, savedArray) {
+      if (!Array.isArray(savedArray)) return defaultArray;
+      return defaultArray.map((item, index) => mergeObject(item, savedArray[index]));
+    }
+
+    function normalizeSiteData(data) {
+      const normalized = cloneDefaultData();
+      if (!data || typeof data !== 'object' || Array.isArray(data)) return normalized;
+
+      normalized.hero = mergeObject(normalized.hero, data.hero);
+      normalized.seo = mergeObject(normalized.seo, data.seo);
+      normalized.philosophy = mergeObject(normalized.philosophy, data.philosophy);
+      normalized.nav = mergeArray(normalized.nav, data.nav);
+      normalized.process = mergeArray(normalized.process, data.process);
+
+      normalized.estimate = mergeObject(normalized.estimate, data.estimate);
+      normalized.estimate.pkgs = mergeArray(normalized.estimate.pkgs, data.estimate && data.estimate.pkgs);
+
+      return normalized;
+    }
+
+    function hideGlobalLoader() {
+      const loader = document.getElementById('global-loader');
+      if(loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 400);
+      }
+    }
+
+    function renderSiteSafely() {
+      try {
+        siteData = normalizeSiteData(siteData);
+        renderPublicUI(siteData);
+        bindInteractions();
+      } catch(error) {
+        console.error(error);
+        removeStoredData();
+        siteData = cloneDefaultData();
+        renderPublicUI(siteData);
+        bindInteractions();
+      } finally {
+        hideGlobalLoader();
+      }
+    }
 
     async function initializeSystem() {
-      const localData = localStorage.getItem('hwarim_v26_data'); 
+      const localData = getStoredData(); 
       if (localData) { 
         try { 
           const parsed = JSON.parse(localData); 
-          if(!parsed.estimate || !parsed.estimate.pkgs) parsed.estimate = JSON.parse(JSON.stringify(defaultData.estimate));
-          if(!parsed.seo) parsed.seo = JSON.parse(JSON.stringify(defaultData.seo));
-          siteData = parsed;
-        } catch(e) {} 
+          siteData = normalizeSiteData(parsed);
+        } catch(e) {
+          console.error(e);
+          removeStoredData();
+          siteData = cloneDefaultData();
+        } 
       }
 
-      renderPublicUI(siteData);
-      bindInteractions();
-      
-      const loader = document.getElementById('global-loader');
-      if(loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 400); }
+      renderSiteSafely();
 
       try {
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        if (typeof __firebase_config === 'undefined' || !__firebase_config) return;
+
+        const [
+          { initializeApp },
+          { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged },
+          { getFirestore, doc, setDoc, onSnapshot }
+        ] = await Promise.all([
+          import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"),
+          import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"),
+          import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js")
+        ]);
+
+        saveRemoteData = setDoc;
+        const firebaseConfig = JSON.parse(__firebase_config);
         appId = typeof __app_id !== 'undefined' ? __app_id : 'hwarim-app';
         app = initializeApp(firebaseConfig);
         auth = getAuth(app); db = getFirestore(app);
@@ -648,11 +783,9 @@
             docRef = doc(db, 'artifacts', appId, 'public', 'data', 'siteConfig', 'main');
             onSnapshot(docRef, (snapshot) => {
               if (snapshot.exists()) { 
-                const data = snapshot.data(); 
-                if(!data.estimate || !data.estimate.pkgs) data.estimate = JSON.parse(JSON.stringify(defaultData.estimate));
-                if(!data.seo) data.seo = JSON.parse(JSON.stringify(defaultData.seo));
+                const data = normalizeSiteData(snapshot.data()); 
                 siteData = data;
-                localStorage.setItem('hwarim_v26_data', JSON.stringify(siteData)); 
+                setStoredData(siteData); 
                 renderPublicUI(siteData);
                 bindInteractions();
               }
@@ -1159,10 +1292,10 @@
       try {
         syncDataFromInputs(); 
         
-        localStorage.setItem('hwarim_v26_data', JSON.stringify(siteData));
+        setStoredData(siteData);
         
-        if (docRef) { 
-          try { await setDoc(docRef, siteData); } 
+        if (docRef && saveRemoteData) { 
+          try { await saveRemoteData(docRef, siteData); } 
           catch (fbError) { console.error(fbError); }
         }
 
@@ -1170,8 +1303,124 @@
         
         btn.textContent = "저장 완료!";
         setTimeout(() => { btn.textContent = "저장 및 반영"; adminView.classList.remove('active'); document.body.classList.remove('no-scroll'); }, 800);
-      } catch(err) { alert("저장 실패"); btn.textContent = "저장 및 반영"; }
+      } catch(err) {
+        console.error(err);
+        const isQuotaError = err && (err.name === 'QuotaExceededError' || err.name === 'NS_ERROR_DOM_QUOTA_REACHED');
+        alert(isQuotaError ? "저장 실패: 이미지 용량이 너무 큽니다. 여러 장의 큰 이미지는 직접 업로드 대신 구글 드라이브 URL로 연결해 주세요." : "저장 실패: " + (err.message || err));
+        btn.textContent = "저장 및 반영";
+      }
     };
+
+    function escapeHtmlAttr(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function serializeDataForScript(data) {
+      return JSON.stringify(data, null, 2)
+        .replace(/<\//g, '<\\/')
+        .replace(/<!--/g, '<\\!--')
+        .replace(/\u2028/g, '\\u2028')
+        .replace(/\u2029/g, '\\u2029');
+    }
+
+    function updateTitleTag(html, title) {
+      const safeTitle = escapeHtmlAttr(title || 'HWARIM');
+      if (/<title>[\s\S]*?<\/title>/i.test(html)) {
+        return html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${safeTitle}</title>`);
+      }
+      return html.replace('</head>', `  <title>${safeTitle}</title>\n</head>`);
+    }
+
+    function updateMetaProperty(html, property, content) {
+      const safeContent = escapeHtmlAttr(content || '');
+      const pattern = new RegExp(`<meta\\s+property=["']${property}["']\\s+content=["'][^"']*["']\\s*/?>`, 'i');
+      const replacement = `<meta property="${property}" content="${safeContent}" />`;
+      if (pattern.test(html)) return html.replace(pattern, replacement);
+      return html.replace('</head>', `  ${replacement}\n</head>`);
+    }
+
+    function cleanDomSnapshotForDownload() {
+      const clone = document.documentElement.cloneNode(true);
+
+      clone.querySelector('body')?.classList.remove('no-scroll');
+      clone.querySelector('#public-view')?.classList.remove('hidden');
+      clone.querySelector('#detail-panel')?.classList.remove('active');
+      clone.querySelector('#admin-view')?.classList.remove('active');
+      clone.querySelector('#blackout-curtain')?.classList.remove('active');
+
+      const loader = clone.querySelector('#global-loader');
+      if (loader) {
+        loader.style.opacity = '';
+        loader.style.display = '';
+      }
+
+      const heroTitle = clone.querySelector('#render-hero-title');
+      if (heroTitle) heroTitle.innerHTML = '';
+
+      const cards = clone.querySelector('#render-cards');
+      if (cards) cards.innerHTML = '';
+
+      const gallery = clone.querySelector('#bg-gallery');
+      if (gallery) gallery.innerHTML = '<div class="bg-overlay"></div>';
+
+      const detailRoot = clone.querySelector('#detail-root');
+      if (detailRoot) detailRoot.innerHTML = '';
+
+      clone.querySelectorAll('#ad-nav-container, #ad-slides-container, #ad-est-pkgs-container').forEach(el => {
+        el.innerHTML = '';
+      });
+
+      clone.querySelectorAll('#seo-prev, #hero-prev, #est-prev-intro, #p-prev-phil').forEach(el => {
+        el.innerHTML = '';
+      });
+
+      const adminTabs = clone.querySelectorAll('.admin-tab');
+      const adminPanes = clone.querySelectorAll('.tab-pane');
+      adminTabs.forEach((tab, idx) => tab.classList.toggle('active', idx === 0));
+      adminPanes.forEach((pane, idx) => pane.classList.toggle('active', idx === 0));
+
+      return '<!DOCTYPE html>\n' + clone.outerHTML;
+    }
+
+    async function loadCurrentHtmlTemplate() {
+      if (location.protocol !== 'file:') {
+        try {
+          const response = await fetch(location.href, { cache: 'no-store' });
+          if (response.ok) return await response.text();
+        } catch(e) {}
+      }
+      return cleanDomSnapshotForDownload();
+    }
+
+    function injectDataIntoHtml(html) {
+      const startMarker = '/* --- DATA_START --- */';
+      const endMarker = '/* --- DATA_END --- */';
+      const start = html.indexOf(startMarker);
+      const end = html.indexOf(endMarker, start);
+
+      if (start === -1 || end === -1) {
+        throw new Error('DATA_START / DATA_END 표시를 찾지 못했습니다.');
+      }
+
+      const dataBlock = `${startMarker}\n    const defaultData = ${serializeDataForScript(siteData)};\n    ${endMarker}`;
+      return html.slice(0, start) + dataBlock + html.slice(end + endMarker.length);
+    }
+
+    function downloadHtmlFile(html) {
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'index.html';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
 
     document.getElementById('btn-download-html').onclick = async () => {
       const btn = document.getElementById('btn-download-html');
@@ -1179,24 +1428,31 @@
       btn.textContent = "배포용 파일 생성 중...";
       
       try {
-        syncDataFromInputs(); 
+        syncDataFromInputs();
+        setStoredData(siteData);
 
-        if (location.protocol === 'file:') {
-          alert("⚠️ 바탕화면에서 직접 연 파일(file://)에서는 다운로드가 제한됩니다.\n반드시 깃허브 홈페이지(https://...)로 접속한 상태에서 다운로드를 진행해 주세요!");
-          btn.textContent = originalText;
-          return;
-        }
-
-        const response = await fetch(location.href);
-        if (!response.ok) throw new Error("Network response was not ok");
-        let html = await response.text();
+        let html = await loadCurrentHtmlTemplate();
         
         if(siteData.seo) {
-          html = html.replace(/<meta property="og:title" content="HWARIM | 프로세스 안내"]*"/g, `<meta property="og:title" content="HWARIM | 프로세스 안내"`);
-          html = html.replace(/<meta property="og:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다."]*"/g, `<meta property="og:description" content="막연한 상상을 실행 가능한 계획으로 만들어 드립니다."`);
-          html = html.replace(/<meta property="og:image" content="https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8"]*"/g, `<meta property="og:image" content="https://lh3.googleusercontent.com/d/1PJHRfbv5kxrFtBMwpigoNxQibko7J2R8"`);
-          html = html.replace(/<title>HWARIM | 프로세스 안내</title>`);
+          html = updateTitleTag(html, siteData.seo.title);
+          html = updateMetaProperty(html, 'og:title', siteData.seo.title);
+          html = updateMetaProperty(html, 'og:description', siteData.seo.desc);
+          html = updateMetaProperty(html, 'og:image', siteData.seo.image);
         }
         
-        const startMarker = '/* --- DATA_START --- */';
-        const endMarker = '
+        html = injectDataIntoHtml(html);
+        downloadHtmlFile(html);
+
+        btn.textContent = "다운로드 완료!";
+        setTimeout(() => { btn.textContent = originalText; }, 1000);
+      } catch(err) {
+        console.error(err);
+        alert("파일 생성 실패: " + (err.message || err));
+        btn.textContent = originalText;
+      }
+    };
+
+    initializeSystem();
+  </script>
+</body>
+</html>
