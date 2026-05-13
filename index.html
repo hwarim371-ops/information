@@ -406,11 +406,13 @@
     };
     /* --- DATA_END --- */
 
+    /* --- DATA_END --- */
+
     let siteData = JSON.parse(JSON.stringify(defaultData));
     let app, auth, db, appId, docRef;
 
     async function initializeSystem() {
-      const localData = localStorage.getItem('hwarim_v21_data'); 
+      const localData = localStorage.getItem('hwarim_v25_data'); 
       if (localData) { try { siteData = JSON.parse(localData); } catch(e) {} }
 
       renderPublicUI(siteData);
@@ -434,7 +436,7 @@
             onSnapshot(docRef, (snapshot) => {
               if (snapshot.exists()) { 
                 siteData = snapshot.data(); 
-                localStorage.setItem('hwarim_v21_data', JSON.stringify(siteData)); 
+                localStorage.setItem('hwarim_v25_data', JSON.stringify(siteData)); 
                 renderPublicUI(siteData);
                 bindInteractions();
               }
@@ -444,9 +446,6 @@
       } catch(e) {}
     }
 
-    /* ====================================================
-       Helper: Generate Image/Video Tag
-       ==================================================== */
     function generateMediaTag(url, className) {
       if(url && url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
         return `<video class="${className}" src="${url}" autoplay loop muted playsinline crossorigin="anonymous"></video>`;
@@ -454,20 +453,15 @@
       return `<img class="${className}" src="${url}" alt="background" loading="lazy" />`;
     }
 
-    /* ====================================================
-       Render Public UI (Fan Shape Cards & Gallery)
-       ==================================================== */
     function renderPublicUI(data) {
       document.getElementById('render-hero-title').innerHTML = data.hero.title;
       
       let cardsHtml = '';
       let bgHtml = '<div class="bg-overlay"></div>';
       
-      // 메인 기본 배경 (호버 안 했을 때)
       bgHtml += `<div class="bg-image active" id="bg-img-default" style="background-image: url('${data.hero.media || ''}');"></div>`;
       
       data.nav.forEach((n, idx) => {
-        // 부채꼴 카드 렌더링
         cardsHtml += `
           <div class="card-wrapper" data-idx="${idx}">
             <div class="card" data-id="${n.id}">
@@ -481,7 +475,6 @@
             </div>
           </div>`;
           
-        // 호버용 백그라운드 갤러리 렌더링
         bgHtml += `<div class="bg-image" id="bg-img-${idx}" style="background-image: url('${n.media}');"></div>`;
       });
       
@@ -506,9 +499,6 @@
       });
     }
 
-    /* ====================================================
-       Detail View Renderers (Cinematic Scroll & Fade)
-       ==================================================== */
     function renderDetailView(id, data) {
       const root = document.getElementById('detail-root');
       
@@ -562,21 +552,57 @@
         }, 100);
 
       } else if (id === 'estimate') {
-        if(window.innerWidth <= 760) {
-          root.innerHTML = `
-            <div style="width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:0 10%; background:var(--bg-base);">
-              <div class="fade-up active">
-                <h2 style="font-size:28px; font-weight:300; margin-bottom:20px; color:var(--text-100);">간이 견적 계산기</h2>
-                <p style="color:var(--text-200); line-height:1.7; margin-bottom:40px;">모바일 환경에서는 더 안정적인 견적 산출을 위해<br>계산기를 새 창으로 제공합니다.</p>
-                <a href="${data.estimate.url}" target="_blank" rel="noopener noreferrer" style="display:inline-block; padding:16px 32px; background:var(--accent); color:#000; font-weight:600; border-radius:4px;">모바일에서 견적 계산기 열기</a>
+        let html = `<div class="cinematic-scroll-container" id="estimate-scroll-container">`;
+        
+        data.estimate.pkgs.forEach((pkg, idx) => {
+          let featuresHtml = (pkg.features || []).map(f => `<li>${f}</li>`).join('');
+          html += `
+            <div class="cinematic-slide" id="est-slide-${idx}">
+              ${generateMediaTag(pkg.media, 'slide-media')}
+              <div class="slide-overlay"></div>
+              <div class="slide-content">
+                <div class="slide-step fade-up">${pkg.name} PACKAGE</div>
+                <h2 class="slide-title fade-up d-1" style="margin-bottom:10px;">${pkg.name}</h2>
+                <p class="slide-desc fade-up d-1" style="font-size: 32px; color: var(--accent); margin-bottom: 20px; font-family: 'Montserrat', sans-serif; font-weight: 300;">₩ ${pkg.price} <span style="font-size:14px; color:var(--text-300); letter-spacing: 1px;">/ VAT 별도</span></p>
+                <p class="slide-desc fade-up d-2" style="font-size: 20px;">${pkg.sub}</p>
+                <ul class="slide-outputs fade-up d-3" style="margin-bottom: 50px;">${featuresHtml}</ul>
+                <div class="fade-up d-4">
+                  <button class="btn-primary" style="padding: 18px 48px; background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 15px; font-weight: 600; letter-spacing: 2px; border-radius: 4px; transition: 0.3s; cursor: pointer;" onmouseover="this.style.background='var(--accent)'; this.style.color='#000';" onmouseout="this.style.background='transparent'; this.style.color='var(--accent)';" onclick="alert('${pkg.name} 패키지 상담을 신청합니다.')">이 패키지 선택하기</button>
+                </div>
               </div>
             </div>`;
-        } else {
-          root.innerHTML = `
-            <div style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; padding:100px 5% 50px; background:var(--bg-base);">
-              <iframe style="width:100%; max-width:1400px; height:85vh; border:none; border-radius:8px; background:#fff;" src="${data.estimate.url}" class="fade-up active"></iframe>
-            </div>`;
-        }
+        });
+        
+        html += `
+          <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="line"></div>
+          </div>
+        </div>`;
+        
+        root.innerHTML = html;
+
+        setTimeout(() => {
+          const scrollContainer = document.getElementById('estimate-scroll-container');
+          const slides = scrollContainer.querySelectorAll('.cinematic-slide');
+          
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if(entry.isIntersecting) {
+                entry.target.classList.add('active');
+                if(entry.target.id === `est-slide-${slides.length - 1}`) {
+                  const indicator = document.querySelector('.scroll-indicator');
+                  if(indicator) indicator.style.opacity = '0';
+                }
+              } else {
+                entry.target.classList.remove('active');
+              }
+            });
+          }, { root: scrollContainer, threshold: 0.5 });
+          
+          slides.forEach(slide => observer.observe(slide));
+          slides[0].classList.add('active');
+        }, 100);
 
       } else if (id === 'philosophy') {
         root.innerHTML = `
@@ -597,9 +623,6 @@
       }
     }
 
-    /* ====================================================
-       ★ 영화관 암전 (Blackout) 이벤트 바인딩 ★
-       ==================================================== */
     let isDetailOpen = false;
 
     function bindInteractions() {
@@ -661,9 +684,6 @@
       bindSecretAdmin();
     }
 
-    /* ====================================================
-       Secret Admin Logic (HWA[R]IM)
-       ==================================================== */
     function bindSecretAdmin() {
       const trigger = document.getElementById('secret-admin-trigger');
       if(!trigger) return;
@@ -683,9 +703,6 @@
       newTrigger.addEventListener('touchend', () => { clearTimeout(pressTimer); });
     }
 
-    /* ====================================================
-       CMS Admin Forms
-       ==================================================== */
     const adminView = document.getElementById('admin-view');
     const tabs = document.querySelectorAll('.admin-tab');
     const panes = document.querySelectorAll('.tab-pane');
@@ -700,7 +717,6 @@
     function openAdmin() { buildAdminForms(); adminView.classList.add('active'); document.body.classList.add('no-scroll'); }
     document.getElementById('btn-close-admin').onclick = () => { adminView.classList.remove('active'); document.body.classList.remove('no-scroll'); };
 
-    // 파일 업로드 (Base64 인코딩)
     window.handleFileUpload = function(event, targetInputId, previewId) {
       const file = event.target.files[0];
       if(!file) return;
@@ -716,7 +732,7 @@
         const img = new Image();
         img.onload = function() {
           const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 1000; // 용량 최적화를 위해 폭을 1000px로 제한
+          const MAX_WIDTH = 1000; 
           let scaleSize = MAX_WIDTH / img.width;
           if(scaleSize > 1) scaleSize = 1; 
           
@@ -729,7 +745,6 @@
           const inputEl = document.getElementById(targetInputId);
           inputEl.value = base64Url;
           
-          // 수동으로 이벤트를 발생시켜 구글 드라이브 변환 로직 등을 통과하도록 함
           inputEl.dispatchEvent(new Event('input'));
           
           if(previewId) {
@@ -739,7 +754,7 @@
         img.src = e.target.result;
       }
       reader.readAsDataURL(file);
-      event.target.value = ''; // 여러 장 연속 업로드를 위해 input 초기화
+      event.target.value = ''; 
     };
 
     function updatePreview(url, previewBox) {
@@ -762,6 +777,40 @@
       }
     }
 
+    // ★ 오토 세이브용 통합 데이터 동기화 함수
+    function syncDataFromInputs() {
+      siteData.hero.title = document.getElementById('ad-hero-title').value;
+      siteData.hero.media = document.getElementById('ad-hero-media').value;
+
+      siteData.nav.forEach((n, i) => {
+        n.title = document.getElementById(`n-title-${i}`).value;
+        n.media = document.getElementById(`n-img-${i}`).value;
+      });
+
+      siteData.process.forEach((s, i) => {
+        s.step = document.getElementById(`s-step-${i}`).value;
+        s.title = document.getElementById(`s-title-${i}`).value;
+        s.media = document.getElementById(`s-img-${i}`).value;
+        s.desc = document.getElementById(`s-desc-${i}`).value;
+        s.outputs = document.getElementById(`s-out-${i}`).value.split(',').map(item => item.trim()).filter(Boolean);
+      });
+
+      siteData.philosophy.bgMedia = document.getElementById('ad-phil-img').value;
+      siteData.philosophy.title = document.getElementById('ad-phil-title').value;
+      siteData.philosophy.subtitle = document.getElementById('ad-phil-sub').value;
+      siteData.philosophy.content = document.getElementById('ad-phil-content').value;
+
+      siteData.estimate.title = document.getElementById('ad-est-title').value;
+      siteData.estimate.desc = document.getElementById('ad-est-desc').value.replace(/\n/g, '<br>');
+      siteData.estimate.pkgs.forEach((p, i) => {
+        p.name = document.getElementById(`e-name-${i}`).value;
+        p.price = document.getElementById(`e-price-${i}`).value;
+        p.media = document.getElementById(`e-img-${i}`).value;
+        p.sub = document.getElementById(`e-sub-${i}`).value;
+        p.features = document.getElementById(`e-feat-${i}`).value.split(',').map(item => item.trim()).filter(Boolean);
+      });
+    }
+
     function buildAdminForms() {
       document.getElementById('ad-hero-title').value = siteData.hero.title;
       document.getElementById('ad-hero-media').value = siteData.hero.media || '';
@@ -770,14 +819,14 @@
       siteData.nav.forEach((n, i) => {
         navHtml += `
           <div class="item-card">
-            <h4>카드 ${i+1} (${n.id})</h4>
-            <div class="form-group"><label>타이틀</label><input type="text" id="n-title-${i}" class="form-control" value="${n.title}" /></div>
+            <h4>카드 ${i+1} (${n.title}) 배경</h4>
+            <div class="form-group" style="display:none;"><label>타이틀</label><input type="hidden" id="n-title-${i}" class="form-control" value="${n.title}" /></div>
             <div class="form-group">
-              <label>배경 이미지 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
+              <label>이 카드 안에 들어갈 이미지 URL (구글 드라이브 권장)</label>
               <div style="display:flex; gap:10px;">
                 <input type="text" id="n-img-${i}" class="form-control media-url-input" data-preview="n-prev-${i}" value="${n.media}" placeholder="URL 입력" style="flex:1" />
                 <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
-                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'n-img-${i}', 'n-prev-${i}')">
+                  업로드 <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'n-img-${i}', 'n-prev-${i}')">
                 </label>
               </div>
             </div>
@@ -811,25 +860,46 @@
       });
       document.getElementById('ad-slides-container').innerHTML = slidesHtml;
 
-      document.getElementById('ad-estimate-url').value = siteData.estimate.url;
-      
       document.getElementById('ad-phil-img').value = siteData.philosophy.bgMedia;
       updatePreview(siteData.philosophy.bgMedia, document.getElementById('p-prev-phil'));
-      
       document.getElementById('ad-phil-title').value = siteData.philosophy.title;
       document.getElementById('ad-phil-sub').value = siteData.philosophy.subtitle;
       document.getElementById('ad-phil-content').value = siteData.philosophy.content;
 
-      // Google Drive 자동 변환 및 초기 미리보기 세팅
+      document.getElementById('ad-est-title').value = siteData.estimate.title;
+      document.getElementById('ad-est-desc').value = siteData.estimate.desc.replace(/<br>/g, '\n');
+      let estHtml = '';
+      siteData.estimate.pkgs.forEach((p, i) => {
+        estHtml += `
+          <div class="item-card">
+            <h4>${i===0 ? '베이직 (1단계)' : i===1 ? '스탠다드 (2단계)' : '프리미엄 (3단계)'} 패키지</h4>
+            <div style="display:flex; gap:10px;" class="form-group">
+              <div style="flex:1;"><label>패키지명</label><input type="text" id="e-name-${i}" class="form-control" value="${p.name}" /></div>
+              <div style="flex:2;"><label>가격 텍스트 (숫자와 콤마만)</label><input type="text" id="e-price-${i}" class="form-control" value="${p.price}" /></div>
+            </div>
+            <div class="form-group">
+              <label>배경 이미지/영상 URL (구글 드라이브 링크 자동 변환) 또는 업로드</label>
+              <div style="display:flex; gap:10px;">
+                <input type="text" id="e-img-${i}" class="form-control media-url-input" data-preview="e-prev-${i}" value="${p.media || ''}" style="flex:1" />
+                <label style="background:#333; color:#fff; padding:0 20px; border-radius:4px; cursor:pointer; display:flex; align-items:center; font-size:12px; white-space:nowrap; border:1px solid #555;">
+                  업로드 (가벼운 이미지용) <input type="file" style="display:none;" accept="image/*" onchange="handleFileUpload(event, 'e-img-${i}', 'e-prev-${i}')">
+                </label>
+              </div>
+            </div>
+            <div id="e-prev-${i}" style="width:120px; height:80px; background:#000; border:1px dashed #444; border-radius:4px; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom:20px;"></div>
+            <div class="form-group"><label>서브 설명</label><input type="text" id="e-sub-${i}" class="form-control" value="${p.sub}" /></div>
+            <div class="form-group"><label>제공 혜택 (쉼표로 구분하여 작성)</label><textarea id="e-feat-${i}" class="form-control" style="min-height:80px;">${p.features.join(', ')}</textarea></div>
+          </div>
+        `;
+      });
+      document.getElementById('ad-est-pkgs-container').innerHTML = estHtml;
+
       document.querySelectorAll('.media-url-input').forEach(input => {
         const pBox = document.getElementById(input.dataset.preview);
-        
-        // 폼 오픈 시 즉시 변환된 상태로 적용
         let initialUrl = convertDriveUrl(input.value);
         if (initialUrl !== input.value) input.value = initialUrl;
         updatePreview(initialUrl, pBox);
         
-        // 붙여넣기(입력) 즉시 변환 및 미리보기 업데이트
         input.addEventListener('input', (e) => {
           let newUrl = convertDriveUrl(e.target.value);
           if(newUrl !== e.target.value) {
@@ -844,39 +914,13 @@
       const btn = document.getElementById('btn-save-data');
       btn.textContent = "저장 중...";
       try {
-        siteData.hero.title = document.getElementById('ad-hero-title').value;
-        siteData.hero.media = document.getElementById('ad-hero-media').value;
-
-        siteData.nav.forEach((n, i) => {
-          n.title = document.getElementById(`n-title-${i}`).value;
-          n.media = document.getElementById(`n-img-${i}`).value;
-        });
-
-        siteData.process.forEach((s, i) => {
-          s.step = document.getElementById(`s-step-${i}`).value;
-          s.title = document.getElementById(`s-title-${i}`).value;
-          s.media = document.getElementById(`s-img-${i}`).value;
-          s.desc = document.getElementById(`s-desc-${i}`).value;
-          s.outputs = document.getElementById(`s-out-${i}`).value.split(',').map(item => item.trim()).filter(Boolean);
-        });
-
-        siteData.estimate.url = document.getElementById('ad-estimate-url').value;
-        siteData.philosophy.bgMedia = document.getElementById('ad-phil-img').value;
-        siteData.philosophy.title = document.getElementById('ad-phil-title').value;
-        siteData.philosophy.subtitle = document.getElementById('ad-phil-sub').value;
-        siteData.philosophy.content = document.getElementById('ad-phil-content').value;
-
-        // 1. 서버 전송 전 로컬 브라우저에 먼저 강제 저장 (HTML 파일 추출용)
-        localStorage.setItem('hwarim_v21_data', JSON.stringify(siteData));
+        syncDataFromInputs(); 
         
-        // 2. 파이어베이스(서버) 연동 시도
+        localStorage.setItem('hwarim_v25_data', JSON.stringify(siteData));
+        
         if (docRef) { 
-          try {
-            await setDoc(docRef, siteData); 
-          } catch (fbError) {
-            console.error(fbError);
-            alert("⚠️ 안내: 한 번에 업로드한 이미지 총 용량이 커서 클라우드 연동이 중단되었습니다.\n\n하지만 걱정하지 마세요!\n현재 수정한 내용은 컴퓨터에 정상 반영되었으므로, [04. 저장 및 배포] 탭에서 HTML 파일을 추출(다운로드)하여 깃허브에 올리시면 완벽하게 배포됩니다.\n\n(※ 안정적인 운영을 위해 고화질 이미지는 구글 드라이브 주소를 활용하시는 것이 좋습니다.)");
-          }
+          try { await setDoc(docRef, siteData); } 
+          catch (fbError) { console.error(fbError); }
         }
 
         renderPublicUI(siteData); bindInteractions(); 
@@ -892,14 +936,16 @@
       btn.textContent = "배포용 파일 생성 중...";
       
       try {
+        syncDataFromInputs(); 
+
         const response = await fetch(location.href);
         let html = await response.text();
         
         const startMarker = '/* --- DATA_START --- */';
         const endMarker = '/* --- DATA_END --- */';
         
-        const startRegex = startMarker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const endRegex = endMarker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const startRegex = startMarker.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&');
+        const endRegex = endMarker.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\$&');
         const regex = new RegExp(startRegex + '[\\s\\S]*?' + endRegex);
         
         const newDataString = startMarker + '\n    const defaultData = ' + JSON.stringify(siteData, null, 2) + ';\n    ' + endMarker;
@@ -932,3 +978,4 @@
   </script>
 </body>
 </html>
+    
